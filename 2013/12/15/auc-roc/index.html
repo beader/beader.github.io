@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AUC与ROC - 衡量分类器的好坏 | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="AUC与ROC - 衡量分类器的好坏"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-15T05:28:40.000Z"><a href="/2013/12/15/auc-roc/">12月 15 2013</a></time>
+      
+      
+  
+    <h1 class="title">AUC与ROC - 衡量分类器的好坏</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="二元分类器">二元分类器</h3>
+<hr>
+<p>&emsp;&emsp;二元分类器是指要输出(预测)的结果只有两种类别的模型。例如预测阳性/阴性，有病/没病，在银行信用评分模型中，也用来预测用户是否会违约，等等。</p>
+<p>&emsp;&emsp;既然是一种预测模型，则实际情况一定是有些结果猜对了，有些结果猜错了。因为二元分类器的预测结果有两种类别(以下以阴/阳为例)，对应其真实值，则会有以下四种情形:</p>
+<pre><code><span class="bullet">1. </span>预测为阳性，真实值为阴性 (伪阳性)
+<span class="bullet">2. </span>预测为阴性，真实值为阳性 (伪阴性)
+<span class="bullet">3. </span>预测为阴性，真实值真的为阴性 (真阴性)
+<span class="bullet">4. </span>预测为阴性，真实值真的为阴性 (真阴性)
+</code></pre><p><img src="/imgs/auc-roc/9686a1f19149fe16eb4b6b383904d086.png" alt="" title="9686a1f19149fe16eb4b6b383904d086.png"><br>图1.confusion matrix (混乱矩阵)</p>
+<a id="more"></a>
+
+
+
+<h3 id="ROC空间">ROC空间</h3>
+<hr>
+<p>&emsp;&emsp;在信号检测理论中，接收者操作特征曲线（receiver operating characteristic curve，或者叫<a href="http://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF" target="_blank" rel="external">ROC曲线</a>）是一种座标图式的分析工具。<br>&emsp;&emsp;要了解ROC曲线，先要了解一下ROC空间，ROC空间是一个以伪阳性率(FPR, false positive rate)为X轴，真阳性率(TPR, true positive rate)为Y轴的二维坐标系所代表平面。</p>
+<ul>
+<li>TPR: 真阳性率，所有阳性样本中(TP+FN)，被分类器正确判断为阳的比例。<br>  TPR = TP / (TP + FN) = TP / 所有真实值为阳性的样本个数</li>
+<li>FPR: 伪阳性率，所有阴性样本中(FP+TN)，被分类器错误判断为阳的比例。<br>  FPR = FP / (FP + TN) = FP / 所有真实值为阴性的样本个数</li>
+</ul>
+<p>&emsp;&emsp;我们想象这样一种场景，接触阳性样本可以给我们带来“收益”，接触阴性样本则会给我们造成”成本”。<br>并且如果我们接触样本中所有的阳性样本，我们的收益是1，接触样本中的所有阴性样本，我们的成本也是1。<br>如果不接触样本，则既不产生收益也不产生成本。<br>&emsp;&emsp;自然的，如果不使用分类器，接触所有样本，则总的效益为1-1=0。现在让我们利用分类器来决定是否接触样本，分类器预测为阳，我们就去接触样本，分类器预测为阴，我们就不去接触。因为不接触样本不会产生收益或是成本，因此我们只需要看分类器预测为阳的样本。预测为阳的样本中，TP将产生 TPR 的收益， FP将产生FPR的成本。<br>&emsp;&emsp;那么一个分类器的分类效果就对应ROC空间里的一个点:<br><img src="/imgs/auc-roc/1a02adedd70816dcd49461354390aaed.png" alt="" title="1a02adedd70816dcd49461354390aaed.png"><br>&emsp;&emsp;图2.ROC空间</p>
+<p>&emsp;&emsp;A,B,C三个点可以分别代表三个不同的分类器对同样的样本做预测的结果。<br>最好的方法是A，因为他的收益大于成本(TPR &gt; FPR)，最差的是C(TPR &lt; FPR)。中等的是B，相当于随机分类器。<br>这里有趣的一点是若把C以(0.5, 0.5)为中点作一个镜像，得到C’， C’的效果比A要来的好。C’相当于一个做与C预测结果完全相反的分类器。<br>&emsp;&emsp;实际的应用当中，分类器还会给出它预测某个样本为阳的概率，并且有一个事先给定的门槛值(threshold)，概率高于threshold的就预测为阳性，低于threshold的就预测为阴性。假设以下是某个分类器对id为1-10的客户的分类结果:</p>
+<p>&emsp;&emsp;表1.分类器预测结果<br><img src="/imgs/auc-roc/95ccbafd95b1ef894b2711d3698d5187.png" alt="" title="95ccbafd95b1ef894b2711d3698d5187.png">  </p>
+<p>&emsp;&emsp;其中probability of 1为分类器判断该样本为阳性的概率，true class为该样本的真实情况。<br>&emsp;&emsp;如果我们把threshold定位0.5，即去接触id为1~8的客户。此时  </p>
+<pre><code><span class="constant">TPR</span> = TP / 所有真实值为阳性的样本个数 = <span class="number">6</span> / <span class="number">6</span> = <span class="number">1</span>
+<span class="constant">FPR</span> = FP / 所有真实值为阴性的样本个数 = <span class="number">2</span> / <span class="number">4</span> = <span class="number">0.6</span>
+</code></pre><p>&emsp;&emsp;同理，如果我们把threshold定位0.8，即去接触id为1~5的客户。此时  </p>
+<pre><code><span class="constant">TPR</span> = TP / 所有真实值为阳性的样本个数 = <span class="number">4</span> / <span class="number">6</span> = <span class="number">0.67</span>
+<span class="constant">FPR</span> = FP / 所有真实值为阴性的样本个数 = <span class="number">1</span> / <span class="number">4</span> = <span class="number">0.25</span>
+</code></pre><p>&emsp;&emsp;这两个threshold分别对应ROC空间中的两个点A、B  </p>
+<p><img src="/imgs/auc-roc/f3aac8b8603adb924363e766992df3cd.png" alt="" title="f3aac8b8603adb924363e766992df3cd.png"><br>&emsp;&emsp;图3.不同的threshold对应ROC空间中不同的点  </p>
+<h3 id="ROC曲线">ROC曲线</h3>
+<hr>
+<p>&emsp;&emsp;上面的例子当中，共有10笔预测数据，则一共有11种threshold的设定方法，每一个threshold对应ROC空间中的一个点，把这些点连接起来，就成了ROC曲线。<br><img src="/imgs/auc-roc/92175e2de4a480e52938a836994e823c.png" alt="" title="92175e2de4a480e52938a836994e823c.png"><br>&emsp;&emsp;图4.ROC曲线  </p>
+<p>&emsp;&emsp;这里因为数据量太少，所以曲线是一折一折的，数据量大的时候，看上去才像”曲线”。</p>
+<h3 id="AUC_(Area_under_the_Curve_of_ROC)_曲线下面积">AUC (Area under the Curve of ROC) 曲线下面积</h3>
+<hr>
+<p>以下直接搬维基百科:</p>
+<ul>
+<li><p>因为是在1x1的方格里求面积，AUC必在0~1之间。</p>
+</li>
+<li><p>假设threshold以上是阳性，以下是阴性；</p>
+</li>
+<li><p>若随机抽取一个阳性样本和一个阴性样本，分类器正确判断阳性样本的值高于阴性样本之机率。(即前文当中把C做一个镜像变为C’)</p>
+</li>
+<li><p>简单说：AUC值越大的分类器，正确率越高。  </p>
+</li>
+</ul>
+<p>&emsp;&emsp;从AUC判断分类器（预测模型）优劣的标准：</p>
+<ul>
+<li><p>AUC = 1，是完美分类器，采用这个预测模型时，不管设定什么阈值都能得出完美预测。绝大多数预测的场合，不存在完美分类器。</p>
+</li>
+<li><p>0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。</p>
+</li>
+<li><p>AUC = 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。</p>
+</li>
+<li><p>AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测，因此不存在AUC &lt; 0.5的情况。</p>
+</li>
+</ul>
+<p><img src="/imgs/auc-roc/f03add592a75ef5b5e7346a5209b0cb8.png" alt="" title="f03add592a75ef5b5e7346a5209b0cb8.png"><br>&emsp;&emsp;图5.用AUC来衡量不同分类器的分类能力(更准确的说是排序能力)</p>
+<h3 id="总结">总结</h3>
+<hr>
+<p>&emsp;&emsp;一个分类模型的分类结果的好坏取决于以下两个部分：</p>
+<ol>
+<li>分类模型的排序能力(能否把概率高的排前面，概率低的排后面)  </li>
+<li>threshold的选择</li>
+</ol>
+<p>&emsp;&emsp;使用AUC来衡量分类模型的好坏，可以忽略由于threshold的选择所带来的影响，因为实际应用中，这个threshold常常由先验概率或是人为决定的。</p>
+<h3 id="补充：Gini_coefficient">补充：Gini coefficient</h3>
+<hr>
+<p>在用SAS或者其他一些统计分析软件，用来评测分类器分类效果时，常常会看到一个叫做gini coefficient的东西，那么这个gini coefficient又是什么呢？<br>gini系数通常被用来判断收入分配公平程度，具体请参阅<a href="http://zh.wikipedia.org/wiki/%E5%9F%BA%E5%B0%BC%E7%B3%BB%E6%95%B0" target="_blank" rel="external">wikipedia-基尼系数</a>。<br><img src="/imgs/auc-roc/1a9a293ac6c97475ebb337fb32081a4d.png" alt="" title="1a9a293ac6c97475ebb337fb32081a4d.png"><br>&emsp;&emsp;图6.洛伦茨曲线与基尼系数  </p>
+<p>&emsp;&emsp;Gini coefficient 是指绝对公平线(line of equality)和洛伦茨曲线(Lorenz Curve)围成的面积与绝对公平线以下面积的比例，即gini coefficient = A面积 / (A面积+B面积) 。 </p>
+<p>&emsp;&emsp;用在评判分类模型的预测效力时，是指ROC曲线曲线和中线围成的面积与中线之上面积的比例。</p>
+<p><img src="/imgs/auc-roc/074c46dccea3031e5ce8fcbb67453cd4.png" alt="" title="074c46dccea3031e5ce8fcbb67453cd4.png"><br>&emsp;&emsp;图7.Gini coefficient与AUC</p>
+<p>因此Gini coefficient与AUC可以互相转换：  </p>
+<pre><code>    gini = <span class="literal">A</span> / (<span class="literal">A</span> + B) = (AUC - C) / (<span class="literal">A</span> + B) = (AUC -<span class="number">0.5</span>) / <span class="number">0.5</span> = <span class="number">2</span>*AUC - <span class="number">1</span>
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/auc/">auc</a>, <a href="/tags/roc/">roc</a>, <a href="/tags/gini-coefficient/">gini coefficient</a>, <a href="/tags/分类器/">分类器</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

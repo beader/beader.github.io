@@ -1,0 +1,860 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第 2 页 | 归档 | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title">归档</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-23T05:00:00.000Z"><a href="/2014/01/23/vc-dimension-one/">1月 23 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/01/23/vc-dimension-one/">机器学习笔记-VC Dimension, Part I</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>笔记整理自台大林轩田老师的开放课程-<a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">机器学习基石</a>，笔记中所有图片来自于课堂讲义。</p>
+<p>&emsp;&emsp;<a href="http://beader.me/2014/01/15/is-learning-feasible/" target="_blank" rel="external">上一篇</a>讲到，learning的时候如果遇上bad sample，如果遇上bad sample我们就无法保证$E_{in}$和$E_{out}$很接近。我们用了一个不等式来衡量遇上bad sample的概率：</p>
+<p>$$\mathbb{P}_\mathcal{D}[BAD\ D]\leq 2Mexp(-2\epsilon ^2N)$$</p>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/01/23/vc-dimension-one/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-15T04:00:00.000Z"><a href="/2014/01/15/is-learning-feasible/">1月 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/01/15/is-learning-feasible/">机器学习笔记-机器为何能够学习?</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>笔记整理自台大林轩田老师的开放课程-<a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">机器学习基石</a>，笔记中所有图片来自于课堂讲义。</p>
+<h2 id="机器学习的基础架构_(Learning_From_Data)">机器学习的基础架构 (Learning From Data)</h2>
+<p>&emsp;&emsp;银行在决定是否要通过贷款申请人的授信请求前，会根据申请人的资料对其进行风险评估，(通常银行会为其计算信用评分)，申请人状况符合银行要求时，银行通过其申请，反之则婉拒。那么银行凭借什么来判断申请人将来是否会违约呢？通过银行之前的信用贷款记录，这些记录中，有些客户发生了违约行为，其他则表现良好，银行从这些违约与非违约的记录中learning到了一些规律，然后利用这些规律，来对新申请人的违约风险进行估计。因此信用评估模型就是一个learning的问题，那么我们该如何使用历史数据做好learning呢？</p>
+<p>&emsp;&emsp;下面这张图描述了learning的基础架构：</p>
+<p><img src="/imgs/is-learning-feasible/basic_setup_of_the_learning_problem.png" alt="" title="basic_setup_of_the _learning_problem.png"><br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/01/15/is-learning-feasible/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-09T09:30:00.000Z"><a href="/2014/01/09/font-in-r-plot/">1月 9 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/01/09/font-in-r-plot/">R统计图表与好玩的字体</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;本文参考至统计之都的<a href="http://cos.name/2014/01/showtext-interesting-fonts-and-graphs/" target="_blank" rel="external">showtext：字体，好玩的字体和好玩的图形</a>以及<a href="http://cos.name/cn/topic/147769" target="_blank" rel="external">R能不能绘制这种图形？？</a>。当中讨论了在R图表中显示中文以及其他自定义字体的方法。这两篇文章中使用到<code>showtext</code>这个包，但实际测试发现好像不使用<code>showtext</code>也能达到同样的效果。下面的R code我是在Mac下的RStudio下实验的，因此如果windows达不到同样的效果，可以参考上面这两篇文章。</p>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/01/09/font-in-r-plot/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-05T09:48:49.000Z"><a href="/2014/01/05/r-partial-derivative/">1月 5 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/01/05/r-partial-derivative/">R语言求函数的偏导数</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;在Machine Learning的课上，老师讲到用gradient decent的方法解logistic regression中cost function的最小值。这当中就要涉及到对cost function的求偏导数。其实在R当中可以很方便的做到这一点。</p>
+<p>&emsp;&emsp;R语言中可以使用<code>D()</code>来求一元函数的导数，用<code>deriv()</code>来求多元函数的偏导数。这两个function都在<code>package:stats</code>中，会在R启动时默认加载。</p>
+<p>&emsp;&emsp;下面以一个多元函数作为demo，希望通过gradient decent的方法求最小值:</p>
+<p>$$E(u,v) = e^u + e^{2v} + e^{uv} + u^2 - 2uv + 2v^2 - 3u - 2v$$</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/01/05/r-partial-derivative/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-21T02:00:00.000Z"><a href="/2013/12/21/perceptron-learning-algorithm/">12月 21 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/21/perceptron-learning-algorithm/">Perceptron Learning Algorithm (PLA)</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="Perceptron_是什么？">Perceptron 是什么？</h3>
+<hr>
+<p>&emsp;&emsp;<a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8" target="_blank" rel="external">Perceptron - 感知机</a>，它能够根据每笔资料的特征，把资料判断为不同的类别。令$h(x)$是一个perceptron，你给我一个$x$($x$是一个特征向量)，把$x$输入$h(x)$，它就会输出这个$x$的类别，譬如在信用违约风险预测当中，输出就可能是这个人会违约，或者不会违约。本质上讲，perceptron是一种<strong><a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8" target="_blank" rel="external">二元线性分类器</a></strong>，它通过对特征向量的加权求和，并把这个”和”与事先设定的门槛值(threshold)做比较，高于门槛值的输出1，低于门槛值的输出-1。  </p>
+<script type="math/tex; mode=display">
+f(x)=
+\left\{
+\begin{matrix}
+1 & if\ w^T\cdot x > threshold\\
+-1 & else
+\end{matrix}\right.
+</script>
+
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/12/21/perceptron-learning-algorithm/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-15T05:28:40.000Z"><a href="/2013/12/15/auc-roc/">12月 15 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/15/auc-roc/">AUC与ROC - 衡量分类器的好坏</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="二元分类器">二元分类器</h3>
+<hr>
+<p>&emsp;&emsp;二元分类器是指要输出(预测)的结果只有两种类别的模型。例如预测阳性/阴性，有病/没病，在银行信用评分模型中，也用来预测用户是否会违约，等等。</p>
+<p>&emsp;&emsp;既然是一种预测模型，则实际情况一定是有些结果猜对了，有些结果猜错了。因为二元分类器的预测结果有两种类别(以下以阴/阳为例)，对应其真实值，则会有以下四种情形:</p>
+<pre><code><span class="bullet">1. </span>预测为阳性，真实值为阴性 (伪阳性)
+<span class="bullet">2. </span>预测为阴性，真实值为阳性 (伪阴性)
+<span class="bullet">3. </span>预测为阴性，真实值真的为阴性 (真阴性)
+<span class="bullet">4. </span>预测为阴性，真实值真的为阴性 (真阴性)
+</code></pre><p><img src="/imgs/auc-roc/9686a1f19149fe16eb4b6b383904d086.png" alt="" title="9686a1f19149fe16eb4b6b383904d086.png"><br>图1.confusion matrix (混乱矩阵)</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/12/15/auc-roc/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-07T11:08:49.000Z"><a href="/2013/12/07/har_random_forest/">12月 7 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/07/har_random_forest/">利用智能手机加速度传感器与三轴陀螺仪预测用户活动状态</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本次实验是coursera上的一门课<a href="https://www.coursera.org/course/dataanalysis" target="_blank" rel="external">Data Analysis</a>的一次小作业。将使用智能手机加速度传感器与三轴陀螺仪采集到的数据，来预测用户当前的活动(walking, walking_upstairs, walking_downstairs, sitting, standing, laying)。所用的数据可以从课程提供的链接下载，<a href="https://spark-public.s3.amazonaws.com/dataanalysis/samsungData.rda" target="_blank" rel="external">https://spark-public.s3.amazonaws.com/dataanalysis/samsungData.rda</a> 。.rda为R专用的数据文件，在R中直接使用<code>load()</code>即可将其载入，比较方便。除此之外，也可到<a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" target="_blank" rel="external">UCI Machine Learning Repository</a>下载原始文件，当中包含dataset的中各个变量以及衍生变量的简介，数据格式为纯文本。</p>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/12/07/har_random_forest/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-01T14:06:27.000Z"><a href="/2013/12/01/random-forests/">12月 1 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/01/random-forests/">Random Forests - 林子大了，什么树都有</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本文参考自<a href="http://blog.echen.me/2011/03/14/laymans-introduction-to-random-forests/" target="_blank" rel="external">Layman’s Introduction to Random Forests</a></p>
+<p>&emsp;&emsp;在machine learning中，随机森林(Random Forests)是一个包含多个决策树(<strong>decision tree</strong>)的分类器，其输出的类别由个别树输出的类别的众数决定[1]。如何从一个比较通俗易懂的角度来理解这座森林呢?<br>&emsp;&emsp;某天你想看某部电影但你不确定自己是否会喜欢，此时你可能会问你的好友小赵，问他认为你会不会喜欢这部电影。这个小赵是个非常认真负责的人，他想先了解了解你喜欢哪种类型的电影。于是你给了小赵一份电影清单，上面写了你喜欢哪些电影，不喜欢哪些电影(a labeled training set)。于是小赵去豆瓣上查这些电影的相关信息，他把每一部电影转换成一个特征向量:(导演，编剧，主演，类型，国家，语言，片长…)，接着在小赵心目中，就建立起了一套判断准则，这个判断准则中有一系列的衡量标准，譬如<code>动作片+有xxx出演-&gt;喜欢</code>，或者<code>爱情片+悲剧-&gt;不喜欢</code>等等。此时小赵就变成了一棵<strong>decision tree</strong>。你问小赵你会不会喜欢某部电影，小赵就会根据之前建立起来的规则，猜测你喜欢或者不喜欢。<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/12/01/random-forests/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-11-24T20:56:49.000Z"><a href="/2013/11/25/word-cloud-in-r/">11月 25 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/11/25/word-cloud-in-r/">Word Cloud in R</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本文参考自<a href="http://onertipaday.blogspot.tw/2011/07/word-cloud-in-r.html" target="_blank" rel="external">One R Tip A Day- Word Cloud in R</a>  </p>
+<hr>
+<h2 id="研究CRAN中R_Packages所关注的最热门的领域">研究CRAN中R Packages所关注的最热门的领域</h2>
+<p>以下的例子将从<a href="http://cran.r-project.org/web/packages/available_packages_by_date.html" target="_blank" rel="external">Available CRAN Packages</a>页面上抓取目前CRAN上所有的R包，提取当中的title，及各个R包的简介，用来分析R包所涵盖的热门领域。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 载入必要的R包</span></div><div class="line"><span class="keyword">require</span>(XML)</div><div class="line"><span class="keyword">require</span>(tm)</div><div class="line"></div><div class="line">u = <span class="string">"http://cran.r-project.org/web/packages/available_packages_by_date.html"</span></div><div class="line"><span class="comment"># 这个readHTMLTable可以直接读取网页中的table并转换为data frame</span></div><div class="line">t = readHTMLTable(u)[[<span class="number">1</span>]]</div><div class="line"><span class="comment"># 观察一下这个table</span></div><div class="line">head(t)</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/11/25/word-cloud-in-r/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+    <a href="/archives/" class="alignleft prev">上一页</a>
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

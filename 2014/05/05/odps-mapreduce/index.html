@@ -1,0 +1,726 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>超级啰嗦版ODPS MapReduce入门 | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="超级啰嗦版ODPS MapReduce入门"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-05-05T14:00:00.000Z"><a href="/2014/05/05/odps-mapreduce/">5月 5 2014</a></time>
+      
+      
+  
+    <h1 class="title">超级啰嗦版ODPS MapReduce入门</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="MapReduce_原理简介">MapReduce 原理简介</h2>
+<p><img src="/imgs/odps-mapreduce/word_count.png" alt="" title="word_count.png"></p>
+<p><a id="more"></a><br>&emsp;&emsp;(上图引用自 <a href="http://blog.jteam.nl/2009/08/04/introduction-to-hadoop/" target="_blank" rel="external">INTRODUCTION TO HADOOP</a> )</p>
+<p>&emsp;&emsp;以MapReduce中最经典的wordcount应用为例，来分析一下MapReduce的全过程。这里我们要统计文件中每个单词出现的次数。</p>
+<ul>
+<li>Input就是我们要处理的原始数据，一共有3行。</li>
+<li>Splitting步骤是分配任务，这里把任务分给3台机器同时处理，每台机器只负责处理一行的数据。</li>
+<li>Mapping步骤就是这3台机器具体要做的事情。在这里每台机器要做的就是统计一行文字里的单词频率。这里就涉及到比较重要的一个概念，就是key和value。这里key就是单词，value就是这个单词在这一行出现的次数。</li>
+<li>Shuffling步骤就是对Mapping步骤产生的9行数据，按照key进行分组。这里分成了4组，每组交给一台电脑去处理。</li>
+<li>Reducing，把相同key对应的value相加，每个key最终只输出一行，依然是key,value的形式输出。</li>
+<li>Final result，把Reducing的输出合并。</li>
+</ul>
+<p>&emsp;&emsp;(注：这里Mapping工作交给3台电脑，Reducing工作交给4台电脑的说法其实是不严谨的，具体要用多少资源来完成MapReduce由系统根据任务的状况决定，通常一台电脑需要完成多个Mapping与Reducing的工作。)</p>
+<p>&emsp;&emsp;为何要如此设计？简单来说，因为MapReduce为的是能实现分布式运算，涉及到多台机器同时运算的步骤有Mapping和Reducing，参与Mapping工作的机器可以完全独立工作而不需要知道其他机器上有什么数据；参与Reducing步骤的机器，由于数据之前已经按照key进行了分组，因此其他机器上有什么数据与他毫无关系。参与计算的机器都是互相独立，完全不依赖其他机器的数据，这样就可以很方便写代码，因为所有参与Mapping工作的机器使用一模一样的代码，所有参与Reducing工作的机器也使用一模一样的代码。</p>
+<p>&emsp;&emsp;我们要在ODPS上要实现MapReduce，就需要写两类代码，一类称为Mapper，另一类称为Reducer。抛开前面所说的原理，我们只需要记住以下两点：</p>
+<ul>
+<li>Mapper每次只处理一行数据。即Mapper的Input是数据库中的一条记录。</li>
+<li>Reducer每次要处理的是相同key下的所有记录，通常会是多行的。</li>
+</ul>
+<h2 id="目标">目标</h2>
+<p>&emsp;&emsp;通过MapReduce计算对每个user每天对不同品牌产生的4种行为(点击、购买、收藏、购物车)的次数进行统计，并且计算在某天某user对某个brand的累计点击次数：</p>
+<p><strong>input table</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">user_id</th>
+<th style="text-align:center">brand_id</th>
+<th style="text-align:center">type</th>
+<th style="text-align:center">visit_datetime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">06-01</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">06-01</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">06-02</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20002</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">06-02</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20002</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">06-02</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">06-02</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">06-03</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">06-03</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">06-03</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">06-04</td>
+</tr>
+</tbody>
+</table>
+<p><strong>output table</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">user_id</th>
+<th style="text-align:center">brand_id</th>
+<th style="text-align:center">visit_datetime</th>
+<th style="text-align:center">clicks</th>
+<th style="text-align:center">buy</th>
+<th style="text-align:center">collect</th>
+<th style="text-align:center">basket</th>
+<th style="text-align:center">cum_clicks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">06-01</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">06-02</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20001</td>
+<td style="text-align:center">06-03</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20002</td>
+<td style="text-align:center">06-02</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">06-02</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">06-03</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">101</td>
+<td style="text-align:center">20003</td>
+<td style="text-align:center">06-04</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;比如<strong>output table</strong>里第三行的意思是，<strong>user_101</strong>在<strong>06-03</strong>这天一共点了<strong>brand_20001</strong> 1次，从<strong>user_101</strong>第一次接触<strong>brand_20001</strong>以来，已经累计点了4次。</p>
+<p>&emsp;&emsp;由于我们想要实现累计求和，因此我们可以在Mapping步骤中，使用<code>(user_id,brand_id)</code>作为key，而<code>(type,visit_datetime)</code>作为value。</p>
+<p>&emsp;&emsp;这么一来，在Reducing步骤中，每个Reducer就能接受到某个user对某个brand的所有交互信息，这样就能衍生出我们所需的新的value，即<code>(visit_datetime, clicks, buy, collect, basket cum_clicks)</code>。</p>
+<p>&emsp;&emsp;在ODPS中需要达到上述目标，需要动手实现3个类，这里我把他们命名为TestMapper，TestReducer，TestDriver，其中TestDriver用来进行一些任务的配置。下面来具体看看如何实现。</p>
+<h2 id="TestDriver">TestDriver</h2>
+<p>&emsp;&emsp;Driver主要用来进行一些格式设定。在此之前你需要在eclipse中新建一个ODPS项目。然后在项目的src上右键-&gt;new-&gt;other，在Aliyun Open Data Processing Service下选择MapReduce Driver…</p>
+<p>&emsp;&emsp;接着eclipse会帮我们生成一个Driver的模板。官方写的很清楚了，所有的TODO部分是需要我们进行修改的。先来看第一个TODO:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// TODO: specify map output types</span></div><div class="line">job.setMapOutputKeySchema(SchemaUtils.fromString(<span class="string">"user_id:string,brand_id:string"</span>));</div><div class="line">job.setMapOutputValueSchema(SchemaUtils.fromString(<span class="string">"type:string,visit_datetime:string"</span>));</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;这是用来设定Mapper输出的时候，key与value的格式。按照之前说的，以<code>(user_id,brand_id)</code>为key，<code>(type,visit_datetime)</code>为value。</p>
+<p>&emsp;&emsp;第二个TODO:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">InputUtils.addTable(TableInfo.builder().tableName(<span class="keyword">args</span>[<span class="number">0</span>]).build(),job);</div><div class="line">OutputUtils.addTable(TableInfo.builder().tableName(<span class="keyword">args</span>[<span class="number">1</span>]).build(),job);</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;设定input table与output table。这里把待会儿命令行调用中，第一个参数(<code>args[0]</code>)设为input table，第二个参数(<code>args[1]</code>)设为output table。待会儿会通过下面的命令在odps console中启动MapReduce任务。(暂时不需要搞清楚的地方都用*代替)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jar <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> TestDriver t_alibaba_bigdata_user_brand_total_1 tb_output</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;其中<code>args[0]</code>就指代<code>t_alibaba_bigdata_user_brand_total_1</code>，<code>args[1]</code>就指代<code>tb_output</code>。</p>
+<p>&emsp;&emsp;第三个TODO:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// TODO: specify a mapper</span></div><div class="line">job.setMapperClass(TestMapper.<span class="keyword">class</span>)</div><div class="line">job.setReducerClass(TestReducer.<span class="keyword">class</span>)</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;告诉系统这次任务要用的Mapper和Reducer是谁，按照上面的设定之后，系统就会通知所有负责Mapping工作的电脑待会儿使用<code>TestMapper</code>中的代码进行运算，通知所有负责Reducing工作的电脑待会儿使用<code>TestReducer</code>中的代码进行运算。</p>
+<p>&emsp;&emsp;TestDriver完整代码如下(省略开头import的部分)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> TestDriver {</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> (String[] args) throws OdpsException {</div><div class="line">    JobConf job = <span class="keyword">new</span> JobConf();</div><div class="line"></div><div class="line">	<span class="comment">// TODO: specify map output types</span></div><div class="line">	job.setMapOutputKeySchema(SchemaUtils.fromString(<span class="string">"user_id:string,brand_id:string"</span>));</div><div class="line">	job.setMapOutputValueSchema(SchemaUtils.fromString(<span class="string">"type:string,visit_datetime:string"</span>));</div><div class="line"></div><div class="line">	<span class="comment">// TODO: specify input and output tables</span></div><div class="line">	InputUtils.addTable(TableInfo.builder().tableName(args[<span class="number">0</span>]).build(),job);</div><div class="line">	OutputUtils.addTable(TableInfo.builder().tableName(args[<span class="number">1</span>]).build(),job);</div><div class="line"></div><div class="line">	<span class="comment">// TODO: specify a mapper</span></div><div class="line">	job.setMapperClass(TestMapper.class)</div><div class="line">	job.setReducerClass(TestReducer.class)</div><div class="line"></div><div class="line">	RunningJob rj = JobClient.runJob(job);</div><div class="line">	rj.waitForCompletion();</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="TestMapper">TestMapper</h2>
+<p>&emsp;&emsp;之前说过，Mapper的任务就是对读入的一行数据，接着输出key和value。key和value都属于Record类，并且key和value都可以由单个或者多个字段构成，在我们这个任务中，key由<code>(user_id,brand_id)</code>两个字段构成，value由<code>(type,visit_datetime)</code>构成。</p>
+<p>&emsp;&emsp;与创建TestDriver的步骤类似，使用官方的模板创建一个名为TestMapper的java代码，同样官方模板把大多数代码都生成好了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span>(TaskContext context) throws IOException {</div><div class="line">	key = context.createMapOutputKeyRecord();</div><div class="line">	<span class="keyword">value</span> = context.createMapOutputValueRecord();</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><code>setup</code>当中是对key和value进行初始化。其中key使用<code>createMapOutputKeyRecord()</code>进行初始化，value使用<code>createMapOutputValueRecord()</code>进行初始化。</p>
+<p>&emsp;&emsp;在map函数中，record代表读入的一行数据，比如<code>101, 20001, 0, 06-01</code>，我们可以通过<code>record.get(n)</code>方法获取该行记录第n列的数据。并且方便的是，这里可以直接对读入的数据进行一个类型转换。例如<code>record.getString()</code>会把读入的数据转为字串，<code>record.getBigInt()</code>则会把读入的数据转为Long型整数。</p>
+<p>&emsp;&emsp;在TestDriver的设定当中，我们已经把Mapper输出的key定为<code>(user_id,brand_id)</code>，value定为<code>(type,visit_datetime)</code>，在map函数中，我们可以使用<code>key.set()</code>与<code>value.set()</code>来分别赋予这4个值。</p>
+<p>&emsp;&emsp;最后<code>context.write(key, value)</code>的意思是输出这条key-value，如果不写这行，Mapper就什么都不输出。一个Mapper可以有0个或多个key-value的输出，每调用一次<code>context.write(key,value)</code>就会输出一行。</p>
+<p>&emsp;&emsp;TestMapper完整代码如下(省略import部分)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMapper</span> <span class="keyword">extends</span> <span class="title">MapperBase</span></span>{</div><div class="line">  Record key;</div><div class="line">  Record value;</div><div class="line"></div><div class="line">  <span class="annotation">@Override</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span>(TaskContext context) <span class="keyword">throws</span> IOException {</div><div class="line">	key = context.createMapOutputKeyRecord();</div><div class="line">	value = context.createMapOutputValueRecord();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="annotation">@Override</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span>(<span class="keyword">long</span> recordNum, Record record, TaskContext context)</div><div class="line">	<span class="keyword">throws</span> IOException {</div><div class="line"></div><div class="line">	key.set(<span class="string">"user_id"</span>, record.getString(<span class="number">0</span>));</div><div class="line">	key.set(<span class="string">"brand_id"</span>, record.getString(<span class="number">1</span>));</div><div class="line"></div><div class="line">	value.set(<span class="string">"type"</span>, record.getString(<span class="number">2</span>));</div><div class="line">	value.set(<span class="string">"visit_datetime"</span>, record.getString(<span class="number">3</span>));</div><div class="line"></div><div class="line">	context.write(key, value);</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="TestReducer">TestReducer</h2>
+<p>&emsp;&emsp;通常Driver和Mapper方面都很简单，大多情况下，计算工作都在Reducing步骤完成，因此Reducer的代码会略多一些。同样按照前面的方法生成名为TestReducer的Reducer类。</p>
+<p>&emsp;&emsp;因为我们要按天来汇总四类行为出现的次数，因此这里我使用一个<code>TreeMap</code>来存储每天四种行为出现的次数。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Map&lt;<span class="built_in">String</span>, <span class="built_in">Long</span>[]&gt; typeCounter = <span class="keyword">new</span> TreeMap&lt;<span class="built_in">String</span>, <span class="built_in">Long</span>[]&gt;();</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;这里又再啰嗦一遍，Mapper每次只处理一行数据，而Reducer通常处理的不止一行，而是会处理属于相同key的所有数据。翻到文章开头的那张图片，图中第二个Reducer，所有key为Car的记录，全部交给该一个Reducer处理。</p>
+<p>&emsp;&emsp;因此reduce函数当中的<code>values</code>参数是一个<code>Iterator</code>，通过调用<code>values.next()</code>来读取所有属于该key的记录。每读取一行记录，都对计数器<code>typeCounter</code>进行对应<code>type</code>的累加操作。</p>
+<p>&emsp;&emsp;Reducer的output是一个Record类，可以通过<code>output.set(n)</code>来设定该output第n列的数值，同样使用<code>context.write(output)</code>输出一行数据。在本文的例子中，对于一个key(user_id,brand_id)而言，有N个不同的<code>visit_datetime</code>，最终就会输出N行数据。因此可以看到TestReducer的<code>context.write(output)</code>是写在一个for-loop里的，会被调用多次，每次会输出一行。类似的操作如果使用SQL实现，就非常的费神了，而使用MapReduce，反而简单许多。</p>
+<p>&emsp;&emsp;TestReducer的完整代码(省略模板中的import部分)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">import java.util.Map;</div><div class="line">import java.util.TreeMap;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> TestReducer extends ReducerMap{</div><div class="line">  Record output;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  <span class="keyword">public</span> void setup(TaskContext context) throws IOException {</div><div class="line">	output = context.createOutputRecord();</div><div class="line">  }</div><div class="line"></div><div class="line">  @Override</div><div class="line">  <span class="keyword">public</span> void reduce(Record key, Iterator&lt;Record&gt; values, TaskContext context)</div><div class="line">	throws IOException {</div><div class="line"></div><div class="line">	Map&lt;<span class="built_in">String</span>, Long[]&gt; typeCounter = <span class="keyword">new</span> TreeMap&lt;<span class="built_in">String</span>, Long[]&gt;();</div><div class="line"></div><div class="line">	<span class="keyword">while</span> (values.hasNext()) {</div><div class="line">	  Record val = values.<span class="keyword">next</span>();</div><div class="line">	  <span class="built_in">String</span> <span class="built_in">date</span> = val.getString(<span class="string">"visit_datetime"</span>);</div><div class="line">	  <span class="built_in">int</span> type = Integer.parseInt(val.getString(<span class="string">"type"</span>));</div><div class="line"></div><div class="line">	  <span class="keyword">if</span> (typeCounter.containsKey(<span class="built_in">date</span>)) {</div><div class="line">		typeCounter.<span class="keyword">get</span>(<span class="built_in">date</span>)[type]++;</div><div class="line">	  } <span class="keyword">else</span> {</div><div class="line">		Long[] counter = <span class="keyword">new</span> Long[]{<span class="number">0</span>L, <span class="number">0</span>L, <span class="number">0</span>L, <span class="number">0</span>L};</div><div class="line">		counter[type]++;</div><div class="line">		typeCounter.put(<span class="built_in">date</span>, counter);</div><div class="line">	  }</div><div class="line">	}</div><div class="line"></div><div class="line">	output.<span class="keyword">set</span>(<span class="number">0</span>, key.getString(<span class="string">"user_id"</span>));</div><div class="line">	output.<span class="keyword">set</span>(<span class="number">1</span>, key.getString(<span class="string">"brand_id"</span>));</div><div class="line">	Long cumClicks = <span class="number">0</span>L;</div><div class="line">	</div><div class="line">	<span class="keyword">for</span> (<span class="built_in">String</span> <span class="built_in">date</span> : typeCounter.keySet()){</div><div class="line">	  output.<span class="keyword">set</span>(<span class="number">2</span>, <span class="built_in">date</span>);</div><div class="line">	  output.<span class="keyword">set</span>(<span class="number">3</span>, typeCounter.<span class="keyword">get</span>(<span class="built_in">date</span>)[<span class="number">0</span>]);</div><div class="line">	  output.<span class="keyword">set</span>(<span class="number">4</span>, typeCounter.<span class="keyword">get</span>(<span class="built_in">date</span>)[<span class="number">1</span>]);</div><div class="line">	  output.<span class="keyword">set</span>(<span class="number">5</span>, typeCounter.<span class="keyword">get</span>(<span class="built_in">date</span>)[<span class="number">2</span>]);</div><div class="line">	  output.<span class="keyword">set</span>(<span class="number">6</span>, typeCounter.<span class="keyword">get</span>(<span class="built_in">date</span>)[<span class="number">3</span>]);</div><div class="line">	  cumClicks += typeCounter.<span class="keyword">get</span>(<span class="built_in">date</span>)[<span class="number">0</span>];</div><div class="line">	  output.<span class="keyword">set</span>(<span class="number">7</span>, cumClicks);</div><div class="line">	  context.write(output);</div><div class="line">	}</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="打包、上传、建表、运行">打包、上传、建表、运行</h2>
+<p>&emsp;&emsp;1. 在Package Explorer中你之前建立的ODPS项目下的src上右键，选择Export，然后选择Java底下的JAR file。接着设定下JAR包存放的位置与文件名。这里假设我们放在<code>C:\TOOLS\test.jar</code>，然后点Finish。</p>
+<p>&emsp;&emsp;2. 打开odps console，新建一个resource。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">odps:tianchi_1234&gt;</span> create resource jar <span class="constant">C</span><span class="symbol">:/tools/test</span>.jar -f</span></div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;3. 在实际运行之前，需要先建立一个表，作为结果输出的位置。这里我们就叫它<code>tb_output</code>好了。<br>&emsp;&emsp;进入sql，建立表格</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">odps:tianchi_1234&gt;</span> sql</span></div><div class="line"><span class="input"><span class="prompt">odps:sql:tianchi_1234&gt;</span> drop table if exists tb_output;</span></div><div class="line"><span class="symbol">odps:</span><span class="symbol">sql:</span>tianchi_1234&gt; create table tb_output (user_id string, brand_id string, visit_datetime string, clicks bigint,</div><div class="line">                       buy bigint, collect bigint, basket bigint, cum_clicks bigint);</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;4. 在odps console下，执行MapReduce任务</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">odps:tianchi_1234&gt;</span> jar -resources test.jar --classpath <span class="symbol">c:</span>/tools/test.jar <span class="constant">TestDriver</span> t_alibaba_bigdata_user_brand_total_1 tb_output;</span></div></pre></td></tr></table></figure>
+
+<h2 id="结尾">结尾</h2>
+<ol>
+<li>本人几乎是第一次写Java，当中如有一些不规范的地方，希望您不吝赐教。</li>
+<li>因为每次MapReduce的执行时间都会很长，建议每次做MapReduce任务的时候，可以先产生一份非常小的table，先拿这个小table做实验，确定结果正确后，再对整张表进行操作。</li>
+<li>odps官方文档的例子中，Mapper，Reducer，Driver是写在同一个文件下的，这样做也可以，但不建议这样写。之前我尝试这么做，当Mapper或者Reducer有错误的时候，无法提示错误在第几行。</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/MapReduce/">MapReduce</a>, <a href="/tags/ODPS/">ODPS</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

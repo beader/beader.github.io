@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>蛇年summary | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="蛇年summary"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-27T05:00:00.000Z"><a href="/2014/01/27/2013-summary/">1月 27 2014</a></time>
+      
+      
+  
+    <h1 class="title">蛇年summary</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;原计划此篇应该要整理机器学习笔记-VC Dimension, Part II，但动笔整理之后才发现，其实自己果真没有理解得太透彻，以至于把林老师的视频和讲义看了好几遍，只能到不明觉厉的地步，但见武功招式，却还无法深入其内功心法。所以希望还是能多磨一些时日，争取把它搞懂。<br><a id="more"></a><br>&emsp;&emsp;我在大学是学统计的，在厦门大学，统计系是被安排在经济学院底下，大学四年有很大一部分的时间是在学习经济这方面的学问，所以以前的学长姐还有自己的同学，毕业之后大多数人的选择是往银行、证券、财务等方向的职业发展。但我选择了偏技术的路线，算是非常地与众不同了吧。<br>&emsp;&emsp;近几年来有一个东西变得越来越火，越来越被人挂在嘴边，那就是数据(data)。随着人类手上的数据量越来越大，数据种类越来越多，人们就越迫切去思考这个问题，我们该如何更好地利用这些数据，让他们产生价值呢？在需求的驱动下，一个神秘而又性感的职业诞生了— data scientist。这是一个把统计理论与计算机应用高度结合起来的职业，因此对于统计出身又对计算机很感兴趣的我，不能更有诱惑力了，我便把它当做接下来的一段时间所要为之奋斗的东西。<br>&emsp;&emsp;前一段时间听说大学的小伙伴小榴莲同学收到了google的offer，真心为你感到高兴，我也因此感到一阵心潮澎湃。想起当年周边的人都在忙着考各种银行、证券、会计从业资格证的时候，我们几个异类选择了选择了自己的兴趣，而不是“大流”，每天宅在软件园里面一块不大的小天地里面，梦想开创属于自己的事业，那段日子真是这辈子最快乐的时光。我们都应当感谢创始人老邱，你仍然是我最敬佩的人，在摩移不到一年的时光，虽然辛苦，但收获颇多，暑假意外得知自己当年写了一半的app上架了，我高兴了好一阵。真的非常期待，我们下一次的团聚。<br>&emsp;&emsp;写这个总结之前我心里一直很虚，我这个小菜鸟有什么好总结的，怕写出来的东西太水太烂被人笑话。但一直以来我却很想写写这个东西，写就写吧，全当是给自己看咯，给未来的自己看看小菜鸟今年都做了些什么。</p>
+<h2 id="MOOC">MOOC</h2>
+<p>&emsp;&emsp;今年4月份偶然跟高中同班的一位同学用QQ聊了几句(这人现在港科大读PHD，主攻AI方向，真正的大神)，他向我推荐了一个好东西—<a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>。Coursera是由stanford大学教授创办的大规模开放在线课堂(MOOC)，和苹果较早推出的iTunes U很类似，只不过Coursera提供更加丰富的学习体验。在Coursera上每门课需要完成一定量的作业，如果达到开课老师规定的毕业标准，在课程结束之后可以获得一份电子版的证书 (Statement of Accomplishment)，类似下面这个东西：</p>
+<p><img src="/imgs/2013-summary/da_accomplishment.png" alt="" title="da_accomplishment.png"></p>
+<p>&emsp;&emsp;更加有趣的是，在Coursera的讨论区中，可以直接与一起修课的同学，助教，甚至是老师进行交流。 不需要花钱就能享受世界上最棒的那些学校的优质课程，何乐而不为？于是这大半年，有很大一部分精力都花在了Coursera上面。这大半年我一共学了这些课：</p>
+<ol>
+<li><a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a>（获得证书）。这是一门讲述函数式编程(Functional Programming)的课。函数式编程与指令式编程(Imperative Programming)相比，更容易写出安全、精简并且优雅的代码。除此之外，使用函数式编程更加容易编写用于平行运算(parallel)的代码，由于单个处理器的性能瓶颈，近年来越来越流行的做法是使用多核心处理器，甚至是多台计算机进行平行运算，以一种更加弹性(scalable)的做法提升运算性能，如果使用传统的指令式编程，实现平行化运算，十分困难。这门课的老师是Scala的发明者，说话和蔼亲切，我从中学到了不少。</li>
+<li><a href="https://www.coursera.org/course/ml" target="_blank" rel="external">Machine Learning</a>（获得证书）。这里不需要再说machin learning是什么的。这门课算是ML的入门课程，不会涉及到过多数学问题，开课老师是Ng，他就是Coursera的创始人。这么课涵盖的内容蛮丰富的，当中涵盖了很多ML的方法，学完之后也能够开始做一些事情了。记得Ng在课上说，学完了Logistic Regression，你就打败了很多在硅谷从事ML工作的人了。不管你信不信，我不太信。</li>
+<li><a href="https://www.coursera.org/course/compinvesting1" target="_blank" rel="external">Computational Investing, Part I</a>（获得证书）。因为大学专业的原因，学过不少经济、金融方面的内容。曾经也有一段时光憧憬过纽约那条无数人所向往的华尔街。因此对量化交易、自动化交易这块，也还保有一丝的兴趣。开课老师Dr. Tucker Balch拥有丰富的业界经验，他是Lucena Research的创始人，该公司为对冲基金提供自动化交易提供技术支持。</li>
+<li><a href="https://www.coursera.org/course/compdata" target="_blank" rel="external">Computing for Data Analysis</a>（获得证书）。此门课是Johns Hopkins所开的R语言入门课程。Johns Hopkins在医疗与生物统计方面很有名气，旗下提供大量关于医疗与统计方面的课程，甚至推出了一个<a href="https://www.coursera.org/specialization/jhudatascience/1?utm_medium=listingPage" target="_blank" rel="external">data science系列课程</a>。R语言就不多做介绍了，搞统计的人一定会知道。这门课不长，只有4周，但所学知识对之后学习其他课程将有巨大的帮助。</li>
+<li><a href="https://www.coursera.org/course/dataanalysis" target="_blank" rel="external">Data Analysis</a>（获得证书）。此课程可以说是Computing for Data Analysis那门课的延续。这是一门专注于数据分析方面的应用型统计的课。这门课会传授许多做数据分析的方法与技巧，以及如何撰写统计分析报告。值得一提的是，这门课想要顺利毕业，除了完成每周的quiz外，还需要根据教授给定的题目以及数据，撰写两篇1500字左右的小论文，并且每一次提交论文之后，你还需要为班上另外四位同学的论文进行评分。这个方式很新颖，但如果能坚持下来，收获会很大，尤其是自己的英文。</li>
+<li><a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">機器學習基石 (Machine Learning Foundations)</a>（获得证书）。这门课为国立台湾大学林轩田教授所开，是精品中的精品。他们团队的科研能力是全世界有目共睹的，台湾大学在2010至2013连续获得了四年(六座)的KDDCup世界冠军(真的很crazy)。这门课会涉及到较多理论层面的东西，需要比较好的数学与统计学的基础。这门课的作业难度较高，需要花费大量时间做题，除了理论推导题还有编程题，但是完成之后，内功必有大长。对于想要彻底了解ML背后的深厚理论支撑的同学，严重推荐这门课。但还是要说Foundations不是Basic，建议先选Ng的ML之后，再来学习林教授这门课，会比较合适。</li>
+<li><a href="https://www.coursera.org/course/startup" target="_blank" rel="external">Startup Engineering</a>（学完但未获证书）。这门课专注于传授如何创办一个科技型公司，或者说互联网公司。这几年互联网的发展速度让人咋舌，通过一个手机APP发家的故事比比皆是，那么在进行互联网创业之前需要学习些什么呢？该课程涵盖内容甚广，包括如何使用amazon ec2虚拟机、如何把利用heroku部署网页应用、Unix命令行、emacs、git版本控制、github、HTML/CSS/Javascript、node.js、APIs、以及一些软件工程、市场研究、融资(如何接受比特币赞助)方面的知识，算得上是非常浓缩的一门课。毕业门槛也比较高，需要自己制定一个创业计划，并把此计划的大致框架给搭建好，录制宣传视频，然后再到众筹阶段，接受投资，最后还有一个排行榜，展示各位学员在结课时的表现，筹到多少钱，在facebook和twitter上的流行程度等等。虽然没有获得证书但从中受益匪浅，尤其是学了unix以及github。</li>
+<li><a href="https://www.coursera.org/course/reactive" target="_blank" rel="external">Principles of Reactive Programming</a>（学了两周实在撑不下去）。这门课由Martin Odersky (Scala创始人)以及其他两位同事所教。听了实在是云里雾里，太难。响应式编程(Reactive Programming)一门结合了并发(concurrency)、事件驱动(event-based)以及异步(asynchronous)系统的新兴学科，在编写网页应用和分散式系统(distributed systems)需要大量用到此方面的知识。学习此门课要求较为深厚的functional programming的根基，只可惜我根基不实，再加上当时同时有3门课在身，无法坚持下去，因此放弃。不过未来有机会，可以再回来搞定它。</li>
+</ol>
+<h2 id="SAS_Data_Mining_比赛">SAS Data Mining 比赛</h2>
+<p>&emsp;&emsp;今年有一件比较得意的事情就是，暑假参加了<a href="http://www.sas.com/offices/asiapacific/taiwan/" target="_blank" rel="external">台湾SAS</a>举办的<a href="http://sasmining.com.tw/" target="_blank" rel="external">「第二屆SAS校園資料採礦競賽」</a>，拿到了第二名(银牌奖)。因为每一届比赛是用同一个比赛网站，所以这个需要截图纪念一下：</p>
+<p><img src="/imgs/2013-summary/sasmining_post.png" alt="" title="sasmining_post.png"></p>
+<p>&emsp;&emsp;决赛结果：</p>
+<p><img src="/imgs/2013-summary/sasmining_result.png" alt="" title="sasmining_result.png"></p>
+<p>&emsp;&emsp;此次比赛共有86队325名同学参加，题目是利用玉山银行房贷申请的历史数据，建制信用风险模型，预测申请户发生房贷违约的风险。初赛从86支队伍中选出准确度最高的前20队进入复赛(我们在准确度上排名第2)，复赛阶段评审由各队所提交的模型建制说明ppt中，选出流程合理、理论完善的10队进入决赛，决赛则展现的是各队的现场报告能力，以及回答评委发问的应变能力。最终我们获得了银牌，拿走了10万台币的奖金，结果还是值得感到欣喜的。参加比赛的时候刚好修完Ng开的Machine Learning课，因此许多灵感都来源于那门课。我希望今年找个时间，把参赛的经验整理成一篇blog。</p>
+<h2 id="Proposal">Proposal</h2>
+<p>&emsp;&emsp;今年比较头大的事情是提论文计划。毕竟已经到了研二了，要想毕业就得写论文。不过我对写论文这方面的事总提不起太大的兴致。不过再纠结了一段时间，认真读了和我研究相关的一些papers之后，也提出了自己的方法。有了前面比赛的一些经验，我论文研究的方向也是与信用风险评分(credit scoring)有关。祈求今年做实验的时候也能会有好结果出来吧。</p>
+<h2 id="Beader’s_Blog">Beader’s Blog</h2>
+<p>&emsp;&emsp;尽管这是个无人知晓的博客，连百度和google都嫌弃，但我觉得这仍然是我本年度干的最牛逼的一件事儿。作为一个伪geek，我没有直接把blog写在新浪，网易或者啥啥博客上面，而是选择自己搭一个，谁说小菜鸟不可以？<br>&emsp;&emsp;整个blog是用markdown来写的，所以格式什么的也很简单，字都只有一个颜色，好处在于简洁专注，不需要太去思考排版(习惯word的人换用markdown来写确实有耳目一新的感觉)。还有就是想在文章内插入公式也比较方便，但也辛苦，起初因为不懂markdown和mathjax的冲突问题，需要耗费大量时间才能使公式正常显示出来，曾经光为了几个公式就折腾了我两整天，就是为了公式能够更漂亮的展示出来，你会发现这里面所有公式都不是图片，都是可以放大缩小的噢。不过偶然的一次总算被我发现问题所在，所以基本现在markdown和mathjax也比较顺利能够和谐相处了。过段时间准备写一篇来说说如何让他们和谐相处的故事。<br>&emsp;&emsp;blog是利用hexo生成出静态网页并同步到github上，因此不需要花费额外的费用，除了每年几十块的域名(beader.me)费用。</p>
+<h2 id="“马上”要做什么？">“马上”要做什么？</h2>
+<p>&emsp;&emsp;马年马上就要到了，马年有什么计划吗？马年最大的心愿当然是马上有工作啦。对于找工作还是弱弱地有点担忧，貌似自己水平还远远不够。不管怎么说，加油吧，当然不能忘记继续学习充电。我发现在学习ML方面的课程时，线性代数真的太重要了，尤其是之后学习一些较为复杂的ML方法时，需要非常深厚的线性代数知识。希望我能有时间把国立交通大学周志成教授的线性代数学一遍，并且多逛逛他的blog-<a href="http://ccjou.wordpress.com/" target="_blank" rel="external">线代启示录</a>。另外就是把这些根基打牢之后，能够往当下很火热的deep learning方向探一探足。想要做的事情还有很多，说多了便不容易做了，希望都能一一实现。<br>&emsp;&emsp;最后当然是希望自己的家人朋友同学老师以及看到此处的你，能够平安幸福。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

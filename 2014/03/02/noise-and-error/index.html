@@ -1,0 +1,588 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习笔记-Noise and Error | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="机器学习笔记-Noise and Error"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-02T06:00:00.000Z"><a href="/2014/03/02/noise-and-error/">3月 2 2014</a></time>
+      
+      
+  
+    <h1 class="title">机器学习笔记-Noise and Error</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>笔记整理自台大林轩田老师的开放课程-<a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">机器学习基石</a>，笔记中所有图片来自于课堂讲义。</p>
+<p>&emsp;&emsp;这篇笔记是阐述“为什么机器能够学习”这个话题的最后一篇，林老师用了4周时间在告诉我们什么时候机器可以学习以及机器为什么能够学习，对比<a href="https://www.coursera.org/course/ml" target="_blank" rel="external">Ng</a>的那门课，第4周已经在讲类神经网络了。为什么要花这么大的篇幅来搞清楚这些那么理论的东西呢？原因很简单，Ng那门课教的是剑法招式，而林帮主这门课教的是内功。郭靖当年跟着江南七怪习武10多年，进步缓慢，难有所成，但跟着马钰只学了个呼吸吐纳之术，武功却不自觉突飞猛进，原来难以完成的动作突然可以轻松完成了。想要修得真功夫，欲速则不达，林帮主的良苦用心，不知各位同学能否体会。</p>
+<p><a id="more"></a></p>
+<h1 id="确定性_v-s_概率性_(deterministic_v-s_probabilistic)">确定性 v.s 概率性 (deterministic v.s probabilistic)</h1>
+<p>&emsp;&emsp;让我们来回忆一下机器学习的基础架构：</p>
+<p>&emsp;&emsp;<img src="/imgs/noise-and-error/learning_flow_with_noise.png" alt="" title="learning_flow_with_noise.png"></p>
+<p>&emsp;&emsp;首先我们认为存在一个未知的真理 $f$，认为 $\mathcal{D}$中的$y$就是 $f$作用于$x$产生的，因此虽然无法直接得到 $f$，但若能找到一个和 $f$表现差不多的函数，也算是能学到东西。但在现实世界中，我们拿到的 $\mathcal{D}$并不是完美的，会有noise的存在，什么是noise呢？我们在用收音机听新闻的时候，往往会听到背景有个“沙沙”的声音，信号不好的时候，这种“沙沙”声会越来越大，这个“沙沙”声就是<a href="http://www.simplynoise.com/" target="_blank" rel="external">noise</a>。我们耳朵听到的是 $\mathcal{D}$(收音机放出来的东西)，我们希望通过 $\mathcal{D}$理解到 $f$(播音员真实要表达的)，这个noise就会干扰这个理解的过程， noise越大，我们就越难分辨播音员到底在说什么。在Learning中，noise主要表现为以下几种形式：</p>
+<ul>
+<li>noise in y : 本来应该是圈圈的，却被标记为叉叉</li>
+<li>noise in y : 输入$\mathcal{X}$完全相同的点，既有被标记圈圈的，也有被标记叉叉的</li>
+<li>noise in x : 输入$\mathcal{X}$本身就存在问题，譬如100被写成了100万</li>
+</ul>
+<p>&emsp;&emsp; $f$ 是一个“确定性”(deterministic)的模型，但$noise$是一个随机发生的东西，他们两个共同作用的结果，就成了一个“概率性”(probabilistic)的东西：</p>
+<script type="math/tex; mode=display">
+\left.\begin{matrix}
+\text{idea mini-target }\;\; f(x)=1\\\
+\text{'flipping' noise } level=0.3
+\end{matrix}\right\}
+\Rightarrow 
+\begin{matrix}
+P(+1|x) = 0.7\\\
+P(-1|x) = 0.3
+\end{matrix}
+</script>
+
+<p>&emsp;&emsp;对于某个样本 $x$，理想状态下，应该有$y=f(x)=+1$，但由于某种noise的存在，该noise会有30%的概率会转换$f(x)$的结果(把+1变成-1或把-1变成+1)。因此在$\mathcal{D}$中，该样本有70%的概率表现出$y=+1$，30%的概率表现出$y=-1$.</p>
+<p>&emsp;&emsp;再举个例子来对比下不考虑noise与考虑noise的情形有什么不同。假设不存在noise的情况下，某个hypothesis $h$在$\mathcal{D}$中的错误率$E_{in}=\mu$。现在考虑加上一个 <em>‘flipping’ noise level</em> $=1-\lambda$的noise，即：</p>
+<script type="math/tex; mode=display">
+P(y|x)=
+\left\{\begin{matrix}
+\lambda & y=f(x)\\\
+1-\lambda & y\neq f(x)
+\end{matrix}\right.
+</script>
+
+<p>&emsp;&emsp;考虑到了noise，$h$判断正确的样本当中，实际只有$\lambda$这么多的比例是真的判断正确的，同理$h$判断错误的样本中，实际也只有$\lambda$这么多的比例是真的判断错误。假设$\mathcal{D}$中样本量为N：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+ & \text{no noise} & \text{noise}\\\ 
+h\text{ on }\mathcal{D} & \left\{\begin{matrix}
+(1-\mu)N & right\\ 
+\\
+\\
+\mu N& wrong 
+\end{matrix}\right. & \begin{matrix}
+\left\{\begin{matrix}
+\lambda(1-\mu)N & \text{true right}\\ 
+(1-\lambda)(1-\mu)N & \text{false right}
+\end{matrix}\right.\\ 
+\\
+\left\{\begin{matrix}
+\lambda \mu N & \text{true wrong}\\ 
+(1-\lambda)\mu N & \text{false wrong}
+\end{matrix}\right.
+\end{matrix}
+\end{matrix}
+</script>
+
+<p>&emsp;&emsp;因此，如果存在noise，则$h$判断错误的数量实际应该为$\lambda \mu N + (1-\lambda)(1-\mu)N$这么多，$h$真实的$E_{in}=\lambda \mu + (1-\lambda)(1-\mu)$。稍微做个合并，得到：</p>
+<p>$$\text{true  }E_{in} = (2\lambda - 1)\mu + (1-\lambda)$$</p>
+<p>&emsp;&emsp;假设通过学习我们得到一个$g$，并且有$E_{in}(g)=0.2$(即$\mu = 0.2$)，若学习所用的$\mathcal{D}$中存在 <em>‘flipping’ level=0.1</em> 的noise(即$<br>\lambda = 0.9$)，则真实的$E_{in}(g)=0.26$。若 <em>‘flipping’ level</em> 达到0.2，则真实的$E_{in}(g) = 0.32$。可见noise的存在对learning是有一定影响的，在noise较大的情况下，算出的$E_{in}$与真实的$E_{in}$也会有很大的差别。因此想要学得好，$\mathcal{D}$的质量非常重要。</p>
+<h1 id="误差的衡量(Error_Measure)">误差的衡量(Error Measure)</h1>
+<p>&emsp;&emsp;在把learning的工作交给机器的时候，必须让机器明白你学习的目标，譬如你想让什么什么最大化，或者什么什么最小化。通常的做法是把每一个预测值与真实值之间的误差(error)看成一种成本，机器要做的，就是在$\mathcal{H}$中，挑选一个能使总成本最低的函数。</p>
+<p>&emsp;&emsp;之前提到的二元分类问题，就是对判断错误的点，记误差为1，判断正确的点，记误差为0：</p>
+<script type="math/tex; mode=display">
+\text{error of h on }x_n
+\left\{\begin{matrix}
+1 & h(x_n)\neq y_n\\\
+0 & h(x_n) = y_n
+\end{matrix}\right.
+</script>
+
+<p>&emsp;&emsp;不管是把$y=+1$的猜错成$-1$，或是把$y=-1$的猜错成$+1$，其产生的误差都为1。</p>
+<p>&emsp;&emsp;在实际应用中，这个误差的定义可以很灵活，例如下面两个指纹验证的例子：</p>
+<ol>
+<li><p>超市利用指纹识别判断某个人是否是他们的会员，若是会员会给相应的折扣。这种情形下，可能做出两种不同的错误判断，把非会员错认为是会员，把会员错认为是非会员。但对于超市来说，这两种错误的成本应该是不同的。把非会员错认为是会员，无非损失些许的折扣；但若是把会员识别为非会员从而不给折扣，就会导致顾客的不满，从而损失掉了未来的生意。针对这种需求，或许下面这个error的衡量办法会更加合理一些。把+1(会员)错判为-1(非会员)的error为10，把-1错判为+1的error为1。</p>
+<p> <img src="/imgs/noise-and-error/cost_supermarket.png" alt="" title="cost_supermarket.png"><br> (f代表真实值，g代表预测值)</p>
+</li>
+<li><p>中情局的门禁系统，利用指纹判断是内部工作人员，才允许进入。这种情形下，若是把好人当坏人，代价并不高，无非就是请工作人员多按一次指纹的功夫，但如果把坏人当好人，损失可就大了。针对这种需求，下面这个error的衡量办法可能更加合理。</p>
+<p> <img src="/imgs/noise-and-error/cost_cia.png" alt="" title="cost_cia.png"></p>
+</li>
+</ol>
+<p>&emsp;&emsp;之前一直说的$E_{in}(h)$，就是$h$作用于$\mathcal{D}$中每一笔数据，所产生的成本之和：</p>
+<script type="math/tex; mode=display">
+E_{in}(h)=\frac{1}{N}\sum_{n=1}^{N}err(h,x_n,y_n)
+</script>
+
+<p>&emsp;&emsp;对于上面中情局的例子，$err(h,x_n,y_n)$的定义如下：</p>
+<script type="math/tex; mode=display">
+err(h,x_n,y_n)=\left\{\begin{matrix}
+1 & h(x_n)\neq y_n,y_n=+1 \\\
+1000 & h(x_n)\neq y_n,y_n=-1
+\end{matrix}\right.
+</script>
+
+<p>&emsp;&emsp;这种误差衡量方式称为”pointwise measure”，即对每个点记录误差，总误差为所有点产生的误差之和。在Ng那门课上，这个$E_{in}(h)$被称为cost function，通过cost function可以计算出当前$h$作用于$\mathcal{D}$所造成的总成本，通过learning找到一个能够使总成本最小的$h$，就完成了学习的过程。</p>
+<p>&emsp;&emsp;针对不同的问题与不同的使用环境，我们可以设计不同的误差衡量方法，下面是集中常见的误差的定义：</p>
+<ul>
+<li><p>0/1 error ，通常用于分类问题：<br>$err(\widetilde{y},y)=[\widetilde{y}\neq y]$</p>
+</li>
+<li><p>squared error，通常用于回归问题：<br>$err(\widetilde{y},y)=(\widetilde{y}-y)^2$</p>
+</li>
+<li><p>absolute error：<br>$err(\widetilde{y},y)=abs(\widetilde{y}-y)$</p>
+</li>
+</ul>
+<p>&emsp;&emsp;总结一下，先根据问题的不同选择合适的误差衡量方式，0/1 error还是squared error或者是其他针对某一场景特殊设计的error？把$h$作用于$\mathcal{D}$中所有点的error加总起来就成了一个cost function，也就是$E_{in}(h)$，接着要设计一个最优化算法$\mathcal{A}$，它能够从$\mathcal{H}$中挑选出能够使$E_{in}$最小的方程$g$，learning就完成了。对于不同类型的cost function，通常会使用不同的最优化算法。对于某些cost function，很容易实现$E_{in}$最小，比如之后会说的线性回归。对于某些cost function，寻找最小的$E_{in}$是困难的，回忆之前说的<a href="http://beader.me/2013/12/21/perceptron-learning-algorithm/" target="_blank" rel="external">PLA</a>，用0/1 error来衡量误差，要minimize $E_{in}$就是个NP Hard问题。</p>
+<p>&emsp;&emsp;当然除此之外，cost function中还可以增加一些来自于error之外的成本，以达到限制模型复杂度方面的目的，如ridge regression、lasso等，这些以后有机会都会提到。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/Noise/">Noise</a>, <a href="/tags/Error-Measure/">Error Measure</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

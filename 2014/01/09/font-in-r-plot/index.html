@@ -1,0 +1,582 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>R统计图表与好玩的字体 | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="R统计图表与好玩的字体"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-09T09:30:00.000Z"><a href="/2014/01/09/font-in-r-plot/">1月 9 2014</a></time>
+      
+      
+  
+    <h1 class="title">R统计图表与好玩的字体</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;本文参考至统计之都的<a href="http://cos.name/2014/01/showtext-interesting-fonts-and-graphs/" target="_blank" rel="external">showtext：字体，好玩的字体和好玩的图形</a>以及<a href="http://cos.name/cn/topic/147769" target="_blank" rel="external">R能不能绘制这种图形？？</a>。当中讨论了在R图表中显示中文以及其他自定义字体的方法。这两篇文章中使用到<code>showtext</code>这个包，但实际测试发现好像不使用<code>showtext</code>也能达到同样的效果。下面的R code我是在Mac下的RStudio下实验的，因此如果windows达不到同样的效果，可以参考上面这两篇文章。</p>
+<p><a id="more"></a></p>
+<h2 id="_"> </h2>
+<p>&emsp;&emsp;正常情况下，R plot不能显示中文，所有中文会变成一个一个方块</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(cars, main = <span class="string">"中文"</span>)</div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/font-in-r-plot/unnamed-chunk-1.png" alt="" title="unnamed-chunk-1.png"></p>
+<p>&emsp;&emsp;这是因为R无法找到正确的中文字体来显示。简单设置一下字体之后，发现中文标题可以正常显示了。这里”Kai”是系统自带的楷体字。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(cars, main = <span class="string">"中文标题"</span>, family = <span class="string">"Kai"</span>)</div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/font-in-r-plot/unnamed-chunk-2.png" alt="" title="unnamed-chunk-2.png"></p>
+<p>&emsp;&emsp;不仅仅是标题，我们往plot上增加的text也是可以设置中文字体的。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">123</span>)</div><div class="line">plot(<span class="number">1</span>, xlim = c(-<span class="number">3</span>, <span class="number">3</span>), ylim = c(-<span class="number">3</span>, <span class="number">3</span>), type = <span class="string">"n"</span>)</div><div class="line">text(runif(<span class="number">7</span>, -<span class="number">3</span>, <span class="number">3</span>), runif(<span class="number">7</span>, -<span class="number">3</span>, <span class="number">3</span>), labels = c(<span class="string">"内"</span>, <span class="string">"容"</span>, <span class="string">"设"</span>, <span class="string">"置"</span>, </div><div class="line">    <span class="string">"为"</span>, <span class="string">"宋"</span>, <span class="string">"体"</span>), col = rgb(runif(<span class="number">7</span>), runif(<span class="number">7</span>), runif(<span class="number">7</span>)), cex = <span class="number">2</span>, </div><div class="line">    family = <span class="string">"Songti SC"</span>)</div><div class="line">title(<span class="string">"楷体的标题"</span>, family = <span class="string">"Kai"</span>)</div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/font-in-r-plot/unnamed-chunk-3.png" alt="" title="unnamed-chunk-3.png"></p>
+<p>&emsp;&emsp;那么我们自己下载的字体可不可以呢？答案是可以的。如果不想安装字体，可以按照文章一开始参考的链接，使用<code>showtext</code>包来载入字体。或者跟我一样先安装字体，这样使用起来就和系统自带的字体一样了。<br>&emsp;&emsp;接下来我们来画一个不同教育程度下性别比例的横向柱状图。首先<a href="http://img.dafont.com/dl/?f=wm_people_1" target="_blank" rel="external">下载wmpeople1字体</a>。在这种字体下字母”p”将显示为男人，”u”将显示为女人。<br>&emsp;&emsp;下载并解压，会得到一个叫wmpeople1.TTF的字体文件。在Mac下直接双击该字体文件即可安装。</p>
+<p><img src="/imgs/font-in-r-plot/install_font.png" alt="" title="install_font.png"></p>
+<p>&emsp;&emsp;先来看看原始数据:  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">edu</th>
+<th style="text-align:center">educode</th>
+<th style="text-align:center">gender</th>
+<th style="text-align:center">population</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">未上过学</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">m</td>
+<td style="text-align:center">17464</td>
+</tr>
+<tr>
+<td style="text-align:center">未上过学</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">f</td>
+<td style="text-align:center">41268</td>
+</tr>
+<tr>
+<td style="text-align:center">小  学</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">m</td>
+<td style="text-align:center">139378</td>
+</tr>
+<tr>
+<td style="text-align:center">小  学</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">f</td>
+<td style="text-align:center">154854</td>
+</tr>
+<tr>
+<td style="text-align:center">初  中</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">m</td>
+<td style="text-align:center">236369</td>
+</tr>
+<tr>
+<td style="text-align:center">初  中</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">f</td>
+<td style="text-align:center">205537</td>
+</tr>
+<tr>
+<td style="text-align:center">高  中</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">m</td>
+<td style="text-align:center">94528</td>
+</tr>
+<tr>
+<td style="text-align:center">高  中</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">f</td>
+<td style="text-align:center">70521</td>
+</tr>
+<tr>
+<td style="text-align:center">大专及以上</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">m</td>
+<td style="text-align:center">57013</td>
+</tr>
+<tr>
+<td style="text-align:center">大专及以上</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">f</td>
+<td style="text-align:center">50334</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;其中人口的单位为(千人)，之后会先除以10000转换为(千万人)。<br>&emsp;&emsp;接下来我们将使用ggplot2画图。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"></div><div class="line"><span class="comment"># 用来产生图形的模拟数据</span></div><div class="line">dat = read.csv(textConnection(<span class="string">'</span></div><div class="line">edu,educode,gender,population</div><div class="line">未上过学,1,m,17464</div><div class="line">未上过学,1,f,41268</div><div class="line">小  学,2,m,139378</div><div class="line">小  学,2,f,154854</div><div class="line">初  中,3,m,236369</div><div class="line">初  中,3,f,205537</div><div class="line">高  中,4,m,94528</div><div class="line">高  中,4,f,70521</div><div class="line">大专及以上,5,m,57013</div><div class="line">大专及以上,5,f,50334</div><div class="line">'));</div><div class="line">dat$int = round(dat$population / <span class="number">10000</span>);</div><div class="line"></div><div class="line"><span class="comment"># 利用plyr::ddply整理数据。我们需要得到整张图中每个小人所站的坐标，以及</span></div><div class="line"><span class="comment"># 该坐标小人的样式(男生or女生)</span></div><div class="line"></div><div class="line"><span class="comment"># 1.按照教育程度"educode"切分数据</span></div><div class="line"><span class="comment"># 2.获取对应教育程度下男生和女生的数量。并转换为横坐标的值</span></div><div class="line"><span class="comment"># 例如未上过学 educode=1当中，男生数为2，女生数为4。则我们应该产生6个坐标点，</span></div><div class="line"><span class="comment"># 这6个左边点的y轴均为1(educode)，x轴分别为1,2,3,4,5,6，其中x=1,2为男生，</span></div><div class="line"><span class="comment"># x = 3,4,5,6为女生</span></div><div class="line">gdat = ddply(dat, <span class="string">"educode"</span>, <span class="keyword">function</span>(d) {</div><div class="line">    male = d$int[d$gender == <span class="string">"m"</span>]</div><div class="line">    female = d$int[d$gender == <span class="string">"f"</span>]</div><div class="line">    data.frame(gender = c(rep(<span class="string">"m"</span>, male), rep(<span class="string">"f"</span>, female)),</div><div class="line">               x = <span class="number">1</span>:(male + female))</div><div class="line">});</div><div class="line"></div><div class="line"><span class="comment"># wmpeople1字体下p显示为男人，u显示为女人，因此把性别的字母做一下转换</span></div><div class="line">gdat$char = ifelse(gdat$gender == <span class="string">"m"</span>, <span class="string">"p"</span>, <span class="string">"u"</span>);</div><div class="line"></div><div class="line">theme_set(theme_grey(base_size = <span class="number">15</span>))</div><div class="line">ggplot(gdat, aes(x = x, y = educode)) + <span class="comment"># 设置横坐标为x，纵坐标为教育程度</span></div><div class="line">  geom_text(aes(label = char, colour = gender),</div><div class="line">            family = <span class="string">"wmpeople1"</span>, size = <span class="number">8</span>) + <span class="comment"># 设置文字字体、大小与颜色</span></div><div class="line">  scale_x_continuous(<span class="string">"\n人数（千万）"</span>) +</div><div class="line">  scale_y_discrete(<span class="string">"受教育程度\n"</span>,</div><div class="line">                   labels = unique(dat$edu[order(dat$educode)])) +</div><div class="line">  scale_colour_hue(guide = <span class="literal">FALSE</span>) +</div><div class="line">  ggtitle(<span class="string">"2012年人口统计数据\n"</span>) +</div><div class="line">  theme(text=element_text(family=<span class="string">'Songti SC'</span>)) <span class="comment"># 设置标题与坐标轴的字体</span></div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/font-in-r-plot/unnamed-chunk-4.png" alt="" title="unnamed-chunk-4.png"></p>
+<p>&emsp;&emsp;标题，横纵坐标的label，以及内部的text都可以修改字体。那么坐标轴上的文字当然也是可以的。<br>&emsp;&emsp;我们来把教育程度改成<a href="http://img.dafont.com/dl/?f=memes_by_jopea302" target="_blank" rel="external">暴走字体</a>。和之前一样下载解压，得到一个Memes.ttf的字体文件，安装它。不过注意安装之后该字体的名称并不是叫Memes，如果像之前一样把字体设置为Memes会报错说找不到字体。</p>
+<p><img src="/imgs/font-in-r-plot/adasdasdsdsd.png" alt="" title="adasdasdsdsd.png"></p>
+<p>&emsp;&emsp;安装的时候我们可以看到该字体真实的名字叫做adasdasdsdsd(看名字就够暴走了。。。)</p>
+<p>&emsp;&emsp;我们这里试着把纵坐标替换为暴走体，因为暴走字体只支持英文大小写以及数字，因此先把这几个教育程度替换为英文字母。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 把edu(中文)转为educhar(字母)</span></div><div class="line">educhar = letters[dat$educode]</div><div class="line"></div><div class="line">ggplot(gdat, aes(x = x, y = educode)) +</div><div class="line">    geom_text(aes(label = char, colour = gender),</div><div class="line">              family = <span class="string">"wmpeople1"</span>, size = <span class="number">7</span>) +</div><div class="line">    scale_x_continuous(<span class="string">"\n人数（千万）"</span>) +</div><div class="line">    scale_y_discrete(<span class="string">"受教育程度\n"</span>,</div><div class="line">        labels = unique(educhar[order(dat$educode)])) +  <span class="comment"># 注意这一行与之前的不同，把dat$edu换为educhar</span></div><div class="line">    scale_colour_hue(guide = <span class="literal">FALSE</span>) +</div><div class="line">    ggtitle(<span class="string">"2012年统计数据\n"</span>) + </div><div class="line">    theme(axis.text.y=element_text(size=rel(<span class="number">4</span>), family=<span class="string">"adasdasdsdsd"</span>),   <span class="comment"># 纵坐标为暴走体</span></div><div class="line">          text=element_text(family=<span class="string">'Songti SC'</span>))  <span class="comment"># 标题以及坐标名称为宋体</span></div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/font-in-r-plot/unnamed-chunk-5.png" alt="" title="unnamed-chunk-5.png"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/R/">R</a>, <a href="/tags/统计图表/">统计图表</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

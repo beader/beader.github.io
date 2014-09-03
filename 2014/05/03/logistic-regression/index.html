@@ -1,0 +1,623 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习笔记-Logistic Regression | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="机器学习笔记-Logistic Regression"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-05-03T08:00:00.000Z"><a href="/2014/05/03/logistic-regression/">5月 3 2014</a></time>
+      
+      
+  
+    <h1 class="title">机器学习笔记-Logistic Regression</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>笔记整理自台大林轩田老师的开放课程-<a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">机器学习基石</a>，笔记中所有图片来自于课堂讲义。</p>
+<p>&emsp;&emsp;<a href="http://beader.me/2014/03/09/linear-regression/" target="_blank" rel="external">上一篇</a>比较深入地去理解了线性回归的思想和算法。分类和回归是机器学习中很重要的两大内容。而本篇要讲的Logistic Regression，名字上看是回归，但实际上却又和分类有关。</p>
+<p>&emsp;&emsp;之前提过的二元分类器如PLA，其目标函数为， $f(x)=sign(w^Tx)\in{-1,+1}$，输出要么是-1要么是+1，是一个“硬”的分类器。而Logistic Regression是一个“软”的分类器，它的输出是$y=+1$的概率，因此Logistic Regression的目标函数是 $\color{purple}{f}(x)=\color{orange}{P(+1|x)}\in [0,1]$。</p>
+<p><a id="more"></a></p>
+<h2 id="方程的形式">方程的形式</h2>
+<script type="math/tex; mode=display">
+h(x)=\frac{1}{1+exp(-w^Tx)}
+</script>
+
+<p>&emsp;&emsp;上面的方程背后有什么逻辑呢？</p>
+<p>&emsp;&emsp;假设医院知道一个病人的年龄、性别、血压、胆固醇水平，可以为他计算他得某种病的概率。最简单的做法就是对这几个特征进行加权求和：</p>
+<script type="math/tex; mode=display">
+\color{purple}{s}=\sum_{i=\color{red}{0}}^d\color{orange}{w_i}{x_i}=w^Tx
+</script>
+
+<p>&emsp;&emsp;但这里有个问题，就是 $\color{purple}{s}$ 的取值范围是$[-\infty,+\infty]$，而我们希望输出的是对该病人患病概率的一个估计，就需要把输出空间$[-\infty,+\infty]$转换到$[0,1]$上。如何变换？通过sigmoid函数 $\color{blue}{\theta}$ 。</p>
+<p>$$\color{blue}{\theta}(\color{purple}{s})=\frac{e^\color{purple}{s}}{1+e^\color{purple}{s}}=\frac{1}{1+e^\color{purple}{-s}}$$</p>
+<p><img src="/imgs/logistic-regression/sigmoid_function.png" alt="" title="sigmoid_function.png"></p>
+<p>&emsp;&emsp;因此，我们就可以利用经过sigmoid变换后的方程来对患病概率进行一个估计。</p>
+<h2 id="误差的衡量_-_Cross_Entropy_Error">误差的衡量 - Cross Entropy Error</h2>
+<p>&emsp;&emsp;有了方程的形式，我们就需要一个误差的衡量方式。<a href="http://beader.me/2014/03/09/linear-regression/" target="_blank" rel="external">上一篇</a>我们讲到Linear Regression所使用的是平方误差，那么Logistic 可以使用平方误差吗？当然可以，error是人定的，你爱怎么定就怎么定，但是使用平方误差好不好，不好。为什么呢？</p>
+<p>&emsp;&emsp;如果使用平方误差，每个点产生的误差是：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+err(h,x_n,y_n) &=
+\left\{
+\begin{matrix}
+(\color{blue}{\theta}(w^Tx)-0)^2 & y_n=0 \\\
+(1-\color{blue}{\theta}(w^Tx))^2 & y_n=1
+\end{matrix}\right. \\\
+&=y_n(1-\color{blue}{\theta}(w^Tx))^2+(1-y_n)\color{blue}{\theta}^2(w^Tx)
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;此时cost function，$E_{in}(w)=\sum{err}$就是一个关于$w$的非凸函数(non-convex)：</p>
+<p><img src="/imgs/logistic-regression/non_convex.png" alt="" title="non_convex.png"></p>
+<p>&emsp;&emsp;非凸函数由于存在很多个局部最小点，因此很难去做最优化(解全局最小)。所以Logistic Regression没有使用平方误差来定义error，而是使用极大似然法来估计模型的参数。那么我们就要先来了解一下这个似然性(likelihood)。<br>&emsp;&emsp;Logistic Regression的目标函数的输出是，在已知$x$的条件下，$y=+1$的概率，因此在已知$x$的条件下，$y=+1$的概率是$f(x)$，$y=-1$的概率是$1-f(x)$:</p>
+<script type="math/tex; mode=display">
+\color{purple}{f}(x)=\color{orange}{P(}\color{blue}{+1}\color{orange}{|x)} \Leftrightarrow \color{orange}{P(y|x)}=
+\left\{\begin{matrix}
+\color{purple}{f}\color{blue}{(x)} & \color{blue}{\text{for } y=+1}\\\ 
+\color{red}{1-}\color{purple}{f}\color{red}{(x)} & \color{red}{\text{for }y=-1}
+\end{matrix}\right.
+</script>
+
+
+
+<p>&emsp;&emsp;考虑我们的训练样本$\mathcal{D}={(x_1,\color{blue}{+1}),(x_2,\color{red}{-1}),…,(x_N,\color{red}{-1})}$，并不是每次抽样都能抽到一模一样的$\mathcal{D}$，抽到这么一份样本是由于各种的机缘巧合。那么我们能抽到这么一份$\mathcal{D}$的概率取决于两部分：1、抽到样本$x_1,…,x_N$的概率；2、这些样本对应的$y_1,…,y_N$等于$\color{red}{+1}$的概率。</p>
+<p><img src="/imgs/logistic-regression/probs_and_likelihood.png" alt="" title="probs_and_likelihood.png"></p>
+<p>&emsp;&emsp;对于目标函数 $\color{purple}{f}$，抽到$\mathcal{D}$的概率只取决于第1部分，而我们无法知道 $\color{purple}{f}$，即第2部分也是未知的，因此我们称在 $\color{orange}(h)$的作用下抽出$\mathcal{D}$的概率为“似然性”。如果 $\color{orange}{h}\approx\color{purple}{f}$，则 $likelihood(\color{orange}{h})\approx \text{probability using }\color{purple}{f}$，并且我们认为在 $\color{purple}{f}$的作用下，产生$\mathcal{D}$这样的样本的概率通常是非常的大的。</p>
+<p><img src="/imgs/logistic-regression/probs_and_likelihood_2.png" alt="" title="probs_and_likelihood_2.png"></p>
+<p>&emsp;&emsp;所以有：</p>
+<p>$$\text{if } \color{orange}{h}\approx\color{purple}{f}\text{, then }\; likelihood(\color{orange}{h})\approx(\text{probability using }\color{purple}{f})\approx\color{purple}{\text{large}}$$</p>
+<p>&emsp;&emsp;则理想的hypothesis就是能使得似然函数最大的那个$h$：<br>$$g=\underset{\color{orange}{h}}{argmax}\;likelihood(\color{orange}{h})$$</p>
+<p>&emsp;&emsp;当$\color{orange}{h}$是logistic函数的时候，即$h(x)=\theta(w^Tx)$，由于logistic函数的中心对称性，有:<br>$$1-h(x)=h(-x)$$</p>
+<p>&emsp;&emsp;所以有:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+likelihood(\color{orange}{h})&=\color{grey}{P(x_1)}\color{orange}{h}\color{blue}{(x_1)}\color{grey}{\times P(x_2)}\color{red}{(1-\color{orange}{h}(x_2))}\color{grey}{\times ...\times P(x_N)}\color{red}{(1-\color{orange}{h}(x_N))} \\\
+&= \color{grey}{P(x_1)}\color{orange}{h}\color{blue}{(x_1)}\color{grey}{\times P(x_2)}\color{red}{(\color{orange}{h}(-x_2))}\color{grey}{\times ...\times P(x_N)}\color{red}{(\color{orange}{h}(-x_N))} \\\
+&= \color{grey}{P(x_1)}\color{orange}{h}\color{blue}{(x_1)}\color{grey}{\times P(x_2)}\color{red}{(\color{orange}{h}(y_2x_2))}\color{grey}{\times ...\times P(x_N)}\color{red}{(\color{orange}{h}(y_Nx_N))}
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;因此有这么一个相似性:</p>
+<p>$$likelihood(logistic\;\color{orange}{h})\propto \prod_{n=1}^{N}\color{orange}{h}(y_nx_n)$$</p>
+<p>&emsp;&emsp;我们的目标是想找到一个似然性最大的方程:</p>
+<p>$$\underset{\color{orange}{h}}{max}\;\;\color{grey}{likelihood(logistic\;\color{orange}{h}) \propto}\prod_{n=1}^{N}\color{orange}{h}(y_nx_n)$$</p>
+<p>&emsp;&emsp;转化成与参数$w$有关的形式:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\underset{\color{orange}{w}}{max}\;\;\color{grey}{likelihood(\color{orange}{w})} &\propto\prod_{n=1}^{N}\theta(y_n\color{orange}{w}^Tx_n) \\\
+&\propto ln\prod_{n=1}^{N}\theta(y_n\color{orange}{w}^Tx_n) \\\
+&\propto \color{grey}{\frac{1}{N}}\sum_{n=1}^{N}ln\,\theta(y_n\color{orange}{w}^Tx_n)
+\end{aligned} 
+</script>
+
+<p>&emsp;&emsp;求解上式最大值，等价于求解下式的最小值:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\;\;\;\;\underset{\color{orange}{w}}{min}\;\color{grey}{\frac{1}{N}}\sum_{n=1}^{N}-ln\,\theta(y_n\color{orange}{w}^Tx_n) \\\
+&\Rightarrow \underset{\color{orange}{w}}{min}\;\color{grey}{\frac{1}{N}}\sum_{n=1}^{N}ln(1+exp(-y_n\color{orange}{w}^Tx_n))
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;求和符号后面的部分就是在极大似然估计下，logistic方程的误差函数，这种形式的误差函数称为cross entropy error:</p>
+<p>$$err(\color{orange}{w},x,y)=ln(1+exp(-y\color{orange}{w}x))\\<br>\color{blue}{\text{cross-entropy error}}$$</p>
+<h2 id="Cost_function">Cost function</h2>
+<p>&emsp;&emsp;有了误差函数后，我们就可以定出Cost function:</p>
+<script type="math/tex; mode=display">
+E_{in}(\color{orange}{w})=\frac{1}{N}\sum_{n=1}^{N}ln(1+exp(-y_n\color{orange}{w}^Tx_n))
+</script>
+
+<p><img src="/imgs/logistic-regression/costf_logistic.png" alt="" title="costf_logistic.png"></p>
+<p>&emsp;&emsp;该函数是连续，可微，并且是凸函数(二次微分矩阵是正定的)。</p>
+<h2 id="如何最小化$E_{in}(w)$">如何最小化$E_{in}(w)$</h2>
+<p>&emsp;&emsp;那么如何能够最小化$E_{in}(w)$呢？按照之前Linear Regression的逻辑，由于它是凸函数，如果我们能解出一阶微分(梯度)为0的点，这个问题就解决了。</p>
+<p>&emsp;&emsp;先来看看$E_{in}(w)$在$w_i$方向上的偏微分：</p>
+<p><img src="/imgs/logistic-regression/deriv_costf_logistic.png" alt="" title="deriv_costf_logistic.png"></p>
+<p>&emsp;&emsp;再把偏微分方程中的$x_{n,i}$换成向量的形式，就得到$E_{in}(w)$的一阶微分:</p>
+<script type="math/tex; mode=display">
+\triangledown E_{in}(w)=\frac{1}{N}\sum_{n=1}^{N}\color{purple}{\theta(\color{black}{-y_nw^Tx_n})}\color{orange}{(-y_nx_n)}
+</script>
+
+<p>&emsp;&emsp;和之前的Linear Regression不同，它不是一个线性的式子，要求解$\triangledown E_{in}(w)=0$这个式子，是困难的。那么该使用何种方法实现$E_{in}(w)$最小化呢？</p>
+<p>&emsp;&emsp;这里可以使用类似<a href="http://beader.me/2013/12/21/perceptron-learning-algorithm/" target="_blank" rel="external">PLA</a>当中的，通过迭代的方式来求解，这种方法又称为梯度下降法(Gradient Descent)。</p>
+<p>&emsp;&emsp;For t = 0, 1, …<br>$$w_{t+1} \leftarrow w_t + \color{red}{\eta}\color{blue}{v}$$<br>&emsp;&emsp;when stop, return $\color{purple}{\text{last w as g}}$</p>
+<p>&emsp;&emsp;其中$\color{red}{\eta}$为每步更新的大小(step size)，$\color{blue}{v}$是单位向量，表示每次更新的方向。</p>
+<p><img src="/imgs/logistic-regression/iterative_opt.png" alt="" title="iterative_opt.png"></p>
+<p>&emsp;&emsp;有点类似一个小球，往山谷方向滚，直至山谷。每一步我们只要决定两个东西：1、滚动的方向；2、滚动的步长。</p>
+<p>&emsp;&emsp;滚动的方向好决定，即在该点一阶微分后的向量所指的方向：</p>
+<script type="math/tex; mode=display">
+\color{blue}{v}=-\frac{\triangledown E_{in}(w_t)}{||\triangledown E_{in}(w_t)||}
+</script>
+
+<p>&emsp;&emsp;步长 $\color{red}{\eta}$比较难决定，太小了，更新太慢，太大了，容易矫枉过正:</p>
+<p><img src="/imgs/logistic-regression/choise_of_eta.png" alt="" title="choise_of_eta.png"></p>
+<p>&emsp;&emsp;一个比较好的做法是让 $\color{red}{\eta}$ 与 $\color{blue}{||\triangledown E_{in}(w_t)||}$ 成一定的比例，让新的和$\color{blue}{||\triangledown E_{in}(w_t)||}$成比例的$\color{purple}{\text{紫色的 }\eta}$ 来代替原来$\color{red}{\text{红色的 }\eta}$：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+w_{t+1} \leftarrow & w_t - \color{red}{\eta} \color{blue}{\frac{\triangledown E_{in}(w_t)}{||\triangledown E_{in}(w_t)||}} \\\
+&\;\;\;\;\;\;\;\;\;\parallel \\\
+&w_t - \color{purple}{\eta}\,\color{blue}{\triangledown E_{in}(w_t)}
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;我们称这个$\color{purple}{\text{紫色的 }\eta}$ 为 $\color{purple}{\text{fixed learning rate}}$。</p>
+<p>&emsp;&emsp;再来完整的梳理下梯度下降法(Gradient Descent):</p>
+<p>&emsp;&emsp;initialize $w_0$</p>
+<p>&emsp;&emsp;For t = 0, 1, …</p>
+<p>&emsp;&emsp;1. compute</p>
+<script type="math/tex; mode=display">
+\triangledown E_{in}(w)=\frac{1}{N}\sum_{n=1}^{N}\color{purple}{\theta(\color{black}{-y_nw^Tx_n})}\color{orange}{(-y_nx_n)}
+</script>
+
+<p>&emsp;&emsp;2. update by</p>
+<script type="math/tex; mode=display">
+w_t - \color{purple}{\eta}\,\color{blue}{\triangledown E_{in}(w_t)}
+</script>
+
+<p>&emsp;&emsp;…until $\color{orange}{E_{in}(w_{t+1})=0}$ or enough iterations</p>
+<p>&emsp;&emsp;return $\color{purple}{\text{last }w_{t+1}\text{ as }g}$</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/Logistic-Regression/">Logistic Regression</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

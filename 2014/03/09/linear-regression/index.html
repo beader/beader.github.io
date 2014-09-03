@@ -1,0 +1,679 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习笔记-Linear Regression | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="机器学习笔记-Linear Regression"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-09T06:00:00.000Z"><a href="/2014/03/09/linear-regression/">3月 9 2014</a></time>
+      
+      
+  
+    <h1 class="title">机器学习笔记-Linear Regression</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>笔记整理自台大林轩田老师的开放课程-<a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">机器学习基石</a>，笔记中所有图片来自于课堂讲义。</p>
+<p>&emsp;&emsp;向所有坚持用$\LaTeX$手打公式而不是直接使用截图的偏执狂致敬！</p>
+<a id="more"></a>
+
+<p>&emsp;&emsp;前面花了很大篇幅在说机器为何能学习，接下来要说的是机器是怎么学习的，进入算法$\mathcal{A}$的部分。<a href="http://beader.me/2014/03/02/noise-and-error/" target="_blank" rel="external">上一篇</a>稍微提到了几个error的衡量方式，接下来的几篇笔记要讲的就是各种error measurement的区别以及针对它们如何设计最优化的算法。通过设计出来的算法，使得机器能够从$\mathcal{H}$(Hypothesis Set)当中挑选可以使得cost function最小的$h$作为$g$输出。</p>
+<p>&emsp;&emsp;本篇以众所周知的线性回归为例，从方程的形式、误差的衡量方式、如何最小化$E_{in}$的角度出发，并简单分析了Hat Matrix的性质与几何意义，希望对线性回归这一简单的模型有个更加深刻的理解。</p>
+<h1 id="方程的形式：">方程的形式：</h1>
+<script type="math/tex; mode=display">
+h(x)=\sum_{i=\color{red}{0}}^d w_ix_i= w^Tx \\\
+</script>
+
+<p>&emsp;&emsp;长得很像perceptron(都是直线嘛)，perceptron是$h(x)=sign(w^Tx)$。</p>
+<h1 id="误差的衡量_—_平方误差(squared_error)：">误差的衡量 — 平方误差(squared error)：</h1>
+<script type="math/tex; mode=display">
+\begin{matrix}
+err(\hat{y}_n,y_n) = (\hat{y}_n-y_n)^2\\\
+(\hat{y}_n\text{为预测值，}y_n\text{为真实值})
+\end{matrix}
+</script>
+
+<h1 id="Cost_function：">Cost function：</h1>
+<script type="math/tex; mode=display">
+E_{in}(w)=\frac{1}{N}\sum_{n=1}^N(\hat{y}_n - y_n)=\frac{1}{N}\sum_{n=1}^N(w^Tx_n-y_n)^2
+</script>
+
+<p>&emsp;&emsp;$h(x)$是一个以$x$为变量的方程，而$E_{in}(w)$变成了一个以$w$为变量的方程。这样一来，我们就把“在$\mathcal{H}$中寻找能使平均误差最小的方程”这个问题，转换为“求解一个函数的最小值”的问题。使得$E_{in}(w)$最小的$w$，就是我们要寻找的那个最优方程的参数。</p>
+<h1 id="如何最小化$E_{in}(w)$：">如何最小化$E_{in}(w)$：</h1>
+<p>&emsp;&emsp;用矩阵形式表示：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E_{in}(\color{blue}{w}) &= \frac{1}{N}\sum_{n=1}^{N}(\color{blue}{w^T}\color{red}{x_n}-\color{purple}{y_n})^2=\frac{1}{N}\sum_{n=1}^{N}(\color{red}{x_n^T}\color{blue}{w}-\color{purple}{y_n})^2 \\\
+
+&=\frac{1}{N}\begin{Vmatrix}
+\color{red}{x_1^T}\color{blue}{w}-\color{purple}{y_1}\\\ 
+\color{red}{x_2^T}\color{blue}{w}-\color{purple}{y_2}\\\ 
+...\\\ 
+\color{red}{x_N^T}\color{blue}{w}-\color{purple}{y_N}
+\end{Vmatrix}^2 \\\
+
+&=\frac{1}{N}\begin{Vmatrix}
+\color{red}{\begin{bmatrix}
+--x_1^T--\\\ 
+--x_2^T--\\\ 
+...\\\
+--x_N^T--
+\end{bmatrix}}
+\color{blue}{w} - 
+\color{purple}{\begin{bmatrix}
+y_1\\\ 
+y_2\\\ 
+...\\\
+y_3
+\end{bmatrix}}
+\end{Vmatrix}^2 \\\
+
+&=\frac{1}{N}||
+\underbrace{\color{red}{X}}_{N\times d+1}\;\;\;
+\underbrace{\color{blue}{w}}_{d+1\times 1} \; - \;
+\underbrace{\color{purple}{y}}_{N\times 1}
+||^2
+
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;$\color{red}{X}$与$\color{purple}{y}$来源于$\mathcal{D}$，是固定不变的，因此它是一个以$\color{blue}{w}$为变量的函数。我们需要解使得$E_{in}$最小的$\color{blue}{w}$，即$\underset{\color{blue}{w}}{min}\,E_{in}(\color{blue}{w})=\frac{1}{N}\begin{Vmatrix}\color{red}{X}\color{blue}{w}-\color{purple}{y}\end{Vmatrix}^2$。这个$E_{in}(\color{blue}{w})$是一个连续(continuous)、处处可微(differentiable)的凸函数(convex)：</p>
+<p>  <img src="/imgs/linear-regression/wlin.png" alt="" title="wlin.png"> &emsp;&emsp;</p>
+<p>&emsp;&emsp;对于这一类函数，只需要解其一阶导数为0时的解即可。</p>
+<script type="math/tex; mode=display">\nabla E_{in}(\color{blue}{w})\equiv \begin{bmatrix}
+\frac{\partial E_{in}}{\partial \color{blue}{w}_0}(\color{blue}{w})\\\ 
+\frac{\partial E_{in}}{\partial \color{blue}{w}_1}(\color{blue}{w})\\\ 
+...\\\
+\frac{\partial E_{in}}{\partial \color{blue}{w}_d}(\color{blue}{w})
+\end{bmatrix}=\begin{bmatrix}
+\color{orange}{0}\\\
+\color{orange}{0}\\\
+...\\\
+\color{orange}{0}
+\end{bmatrix}</script>
+
+<p>&emsp;&emsp;关于多元函数的求导，就是线性代数的范畴了：</p>
+<script type="math/tex; mode=display">
+\boxed
+{
+\begin{matrix}
+\text{一元的情况}\\\
+\\\
+E_{in}(\color{blue}{w})=\frac{1}{N}(\color{red}{a}\color{blue}{w^2}-2\color{brown}{b}\color{blue}{w}+\color{purple}{c})\\\ 
+\nabla E_{in}(\color{blue}{w})=\frac{1}{N}(2\color{red}{a}\color{blue}{w}-2\color{brown}{b})
+\end{matrix} 
+}
+\xrightarrow{\text{推广至}}
+\boxed{
+\begin{matrix}
+\text{多元的情况}\\\
+\\\
+E_{in}(\color{blue}{w})=\frac{1}{N}(\color{blue}{w^T}\color{red}{A}\color{blue}{w}-2\color{blue}{w^T}\color{brown}{b}+\color{purple}{c})\\\ 
+\nabla E_{in}(\color{blue}{w})=\frac{1}{N}(2\color{red}{A}\color{blue}{w}-2\color{brown}{b})
+\end{matrix}
+}
+</script>
+
+<p>&emsp;&emsp;所以有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\nabla E_{in}(\color{blue}{w}) &=\nabla \frac{1}{N}(\color{blue}{w^T}\color{red}{X^TX}\color{blue}{w}-2\color{blue}{w^T}\color{brown}{X^Ty}+\color{purple}{y^Ty}) \\\
+&=\frac{2}{N}(\color{red}{X^TX}\color{blue}{w}-\color{brown}{X^Ty})
+\end{aligned}
+
+</script>
+
+<p>&emsp;&emsp;令$\nabla E_{in}(\color{blue}{w})=0$，可得最佳解：</p>
+<script type="math/tex; mode=display">
+\color{blue}{w_{LIN}}=\underbrace{(\color{red}{X^TX})^{-1}\color{red}{X^T}}_{pseudo-inverse\;\color{red}{X^{\dagger}}}\;\;\;\color{purple}{y} = \color{red}{X^{\dagger}} \color{purple}{y}
+</script>
+
+<p>&emsp;&emsp;当$\color{red}{X^TX}$可逆的时候用它作为pseudo-inverse矩阵$\color{red}{X^{\dagger}}$，当$\color{red}{X^TX}$不可逆的时候，再用其他方式定义$\color{red}{X^{\dagger}}$，这里就不详述了。</p>
+<p>&emsp;&emsp;用以$\color{blue}{w_{LIN}}$为参数的线性方程对原始数据做预测，可以得到拟合值$\hat{y}=\color{red}{X}\color{blue}{w_{LIN}}=\color{red}{XX^{\dagger}}\color{purple}{y}$。这里又称$\color{orange}{H}=\color{red}{XX^{\dagger}}$为Hat Matrix，帽子矩阵，$\color{orange}{H}$为$\color{purple}{y}$带上了帽子，成为$\hat{y}$，很形象吧。</p>
+<h1 id="Hat_Matrix_的几何意义">Hat Matrix 的几何意义</h1>
+<p><img src="/imgs/linear-regression/geoview_hatmatrix.png" alt="" title="geoview_hatmatrix.png"></p>
+<p>&emsp;&emsp;这张图展示的是在N维实数空间$\mathbb{R}^N$中，注意这里是N=数据笔数，$\color{purple}{y}$中包含所有真实值，$\hat{y}$中包含所有预测值，与之前讲的输入空间是d+1维是不一样的噢。$\color{red}{X}$中包含d+1个column：</p>
+<ul>
+<li>$\hat{y}=\color{red}{X}\color{blue}{w_{LIN}}$是$\color{red}{X}$的一个线性组合，$\color{red}{X}$中每个column对应$\mathbb{R}^N$下的一个向量，共有d+1个这样的向量，因此$\hat{y}$在这d+1个向量所构成的$\color{red}{span}$(平面)上。</li>
+<li>事实上我们要做的就是在这个平面上找到一个向量$\hat{y}$使得他与真实值之间的距离$|\color{green}{y-\hat{y}}|$最短。不难发现当$\hat{y}$是$\color{purple}{y}$在这个平面上的投影时，即$\color{green}{y-\hat{y}}\perp \color{red}{span}$时，$|\color{green}{y-\hat{y}}|$最短。</li>
+<li>所以之前说过的Hat Matrix $\color{orange}{H}$，为$\color{purple}{y}$戴上帽子，所做的就是投影这个动作，寻找$\color{red}{span}$上$\color{purple}{y}$的投影。</li>
+<li>$\color{orange}{H}\color{purple}{y}=\hat{y}$，$(I-\color{orange}{H})\color{purple}{y}=\color{green}{y-\hat{y}}$。($I$为单位矩阵)</li>
+</ul>
+<p>&emsp;&emsp;下面来探究一下$\color{orange}{H}$的性质，这个很重要噢。</p>
+<p>$$\text{Hat Matrix }\color{orange}{H} = \color{red}{X(X^TX)}^{-1}\color{red}{X^T}:$$</p>
+<ul>
+<li>对称性(symetric)，即$\color{orange}{H}=\color{orange}{H^T}$：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\color{orange}{H^T} &= (\color{red}{X(X^TX)}^{-1}\color{red}{X^T})^T \\\
+&=\color{red}{X({(X^TX)}^{-1})^TX^T} \\\
+&=\color{red}{\color{red}{X(X^TX)}^{-1}\color{red}{X^T}}\\\
+&=\color{orange}{H}
+\end{aligned}
+</script>
+
+<ul>
+<li>幂等性(idempotent)，即$\color{orange}{H^2}=\color{orange}{H}$：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\color{orange}{H^2} &= (\color{red}{X(X^TX)}^{-1}\color{red}{X^T})(\color{red}{X(X^TX)}^{-1}\color{red}{X^T})\\\
+&=\color{red}{X\;}\underbrace{\color{red}{(X^TX)}^{-1}\color{red}{(X^TX)}}_{I}\;\color{red}{(X^TX)}^{-1}\color{red}{X^T} \\\
+&=\color{red}{X}\color{red}{(X^TX)}^{-1}\color{red}{X^T}\\\
+&=\color{orange}{H}
+\end{aligned}
+</script>
+
+
+<ul>
+<li>半正定(positive semi-definite)，即所有特征值为非负数：<br>(以下$\lambda$为特征值，$b$为对应的特征向量)<script type="math/tex; mode=display">
+\begin{aligned}
+\color{orange}{H}b&=\lambda b\\\
+\color{orange}{H^2}b&=\lambda \color{orange}{H}b \\\
+&=\lambda (\lambda b)\\\
+\text{(因为}\color{orange}{H^2}&=\color{orange}{H}\text{)}\\\
+\color{orange}{H^2}b&=\color{orange}{H}b=\lambda b\\\
+\text{所以}&:\\\
+\lambda ^2b&=\lambda b \\\
+\text{即}&:\\\
+\lambda (\lambda -1)b&=0 \\\
+\lambda = 0 &\text{ or } \lambda=1
+\end{aligned}
+</script>
+
+</li>
+</ul>
+<p>&emsp;&emsp;林老师在课堂上讲到：</p>
+<p>$$trace(I-\color{orange}{H}) = N-(d+1)$$</p>
+<p>&emsp;&emsp;$trace$为矩阵的迹。这条性质很重要，但是为什么呢？证明过程有点多，以后有机会再补充，心急的同学可以看这里<a href="http://www.stat.berkeley.edu/~census/general.pdf" target="_blank" rel="external">General formulas for bias and variance in OLS</a>。一个矩阵的$trace$等于该矩阵的所有特征值(Eigenvalues)之和。</p>
+<p><img src="/imgs/linear-regression/geoview_hatmatrix_noise.png" alt="" title="geoview_hatmatrix_noise.png"></p>
+<p>&emsp;&emsp;假设$\color{purple}{y}$由$\color{red}{f(X)\in span}+noise$构成的。有$\color{purple}{y}=\color{red}{f(X)}+noise$。之前讲到$\color{orange}{H}$作用于某个向量，会得到该向量在$\color{red}{span}$上的投影，而$I-\color{orange}{H}$作用于某个向量，会得到那条与$\color{red}{span}$垂直的向量，在这里就是图中的$\color{green}{y-\hat{y}}$，即$(I-\color{orange}{H})noise=\color{green}{y-\hat{y}}$。</p>
+<p>&emsp;&emsp;这个$\color{green}{y-\hat{y}}$是真实值与预测值的差，其长度就是就是所有点的平方误差之和。于是就有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E_{in}(\color{blue}{w_{LIN}})&=\frac{1}{N}||\color{green}{y-\hat{y}}||^2\\\
+&=\frac{1}{N}||(I-\color{orange}{H})noise||^2 \\\
+&=\frac{1}{N}trace(I-\color{orange}{H})||noise||^2 \\\
+&=\frac{1}{N}(N-(d+1))||noise||^2
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;上面的证明不太好整理进来，依然可以参考<a href="http://www.stat.berkeley.edu/~census/general.pdf" target="_blank" rel="external">General formulas for bias and variance in OLS</a>。</p>
+<p>&emsp;&emsp;因此，就平均而言，有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\color{red}{\overline{E_{in}}}&=\text{noise level}\cdot(1-\frac{d+1}{N})\\\
+\color{blue}{\overline{E_{out}}}&=\text{noise level}\cdot(1+\frac{d+1}{N}) \;\;\;(后面这个不懂证了。)
+\end{aligned}
+</script>
+
+<p>&emsp;&emsp;花这么大力气是为了什么，又回到之前learning可行性的话题了。</p>
+<p>  <img src="/imgs/linear-regression/linear_regression_learning_curve.png" alt="" title="linear_regression_learning_curve.png"></p>
+<p>&emsp;&emsp;$\color{red}{\overline{E_{in}}}$和$\color{blue}{\overline{E_{out}}}$都向$\sigma ^2$(noise level)收敛，并且他们之间的差异被$\frac{2(d+1)}{N}$给bound住了。有那么点像VC bound，不过要比VC bound来的更严格一些。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a>, <a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

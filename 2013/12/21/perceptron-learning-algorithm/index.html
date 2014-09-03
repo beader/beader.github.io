@@ -1,0 +1,601 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Perceptron Learning Algorithm (PLA) | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Perceptron Learning Algorithm (PLA)"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-21T02:00:00.000Z"><a href="/2013/12/21/perceptron-learning-algorithm/">12月 21 2013</a></time>
+      
+      
+  
+    <h1 class="title">Perceptron Learning Algorithm (PLA)</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="Perceptron_是什么？">Perceptron 是什么？</h3>
+<hr>
+<p>&emsp;&emsp;<a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8" target="_blank" rel="external">Perceptron - 感知机</a>，它能够根据每笔资料的特征，把资料判断为不同的类别。令$h(x)$是一个perceptron，你给我一个$x$($x$是一个特征向量)，把$x$输入$h(x)$，它就会输出这个$x$的类别，譬如在信用违约风险预测当中，输出就可能是这个人会违约，或者不会违约。本质上讲，perceptron是一种<strong><a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8" target="_blank" rel="external">二元线性分类器</a></strong>，它通过对特征向量的加权求和，并把这个”和”与事先设定的门槛值(threshold)做比较，高于门槛值的输出1，低于门槛值的输出-1。  </p>
+<script type="math/tex; mode=display">
+f(x)=
+\left\{
+\begin{matrix}
+1 & if\ w^T\cdot x > threshold\\
+-1 & else
+\end{matrix}\right.
+</script>
+
+<p><a id="more"></a><br>&emsp;&emsp;更加紧凑一些，我们可以把它写成<br>$$<br>h(x) = sign(\sum _{i=1}^{d}w_ix_i+b)<br>$$<br>&emsp;&emsp;其中$d$表示维度数，$x$是$d$维空间中的一个点,&emsp;$x=(x_1,x_2,…,x_d)$;&emsp;$sign()$输出运算结果的符号，大于0的输出+1，其余输出-1。  </p>
+<p>&emsp;&emsp;细心一点可以看出，其实$\sum _{i=1}^{d}w_ix_i+b =0$在1维空间中代表一个点，在2维空间中代表一条直线，在3维空间中代表一个平面。</p>
+<p>&emsp;&emsp;以2维空间为例:</p>
+<p>&emsp;&emsp;对于所有满足$\sum_{i=1}^{d}w_ix_i+b&lt;0$的$x$，将落在直线一边的区域中(下图中的蓝色).</p>
+<p>&emsp;&emsp;对于所有满足$\sum _{i=1}^{d}w_ix_i+b &gt; 0$的$x$，将落在直线的另一边(下图中的红色)。</p>
+<p><img src="/imgs/perceptron-learning-algorithm/unnamed-chunk-1.png" alt="" title="perceptron.png"></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图1 在2维空间中perceptron是一条直线</p>
+<p>&emsp;&emsp;为了方便后面计算，我们常常衍生出一个维度出来，使得$b=w_0x_0,x_0$这个维度恒等于1。则perceptron可以用矩阵的形式表示出来:</p>
+<p>$$h(x)=sign(\sum _{i=0}^{d}w_ix_i)=w^Tx$$</p>
+<p>&emsp;&emsp;注意: 这里要搞清楚下标的含义，上文中的$x_i$、$w_i$指$x$向量、$w$向量的第$i$个维度。因为后文都是用矩阵乘法，因此下标不再表示维度，譬如$x_n$表示某笔资料，它是一个向量，而$w_t$指第$t$次更新之后的$w$，它也是一个向量。</p>
+<h3 id="Perceptron_Learning在做什么？">Perceptron Learning在做什么？</h3>
+<hr>
+<p>&emsp;&emsp;Perceptron Learning Algorithm的目的是要找到一个perceptron，能把正确地把不同类别的点区分开来。<br>&emsp;&emsp;在二维平面上，任何找一条直线都可以用来做perceptron，只不过有些perceptron分类能力比较好(分错的少)，有些perceptron分类能力比较差(分错的多)。</p>
+<p><img src="/imgs/perceptron-learning-algorithm/unnamed-chunk-2.png" alt="" title="different perceptrons.png"></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图2 2维空间中的两个不同的perceptron</p>
+<p>&emsp;&emsp;上图中是二维平面上的两个perceptron，图中圈圈代表+1的点，叉叉代表-1的点。左边的perceptron把两个叉叉错分到圈圈当中，而右边的则很完美地把圈圈和叉叉区分开来。在二维平面中存在无数个可能的perceptron，而perceptron learning的目的是找到一个好的perceptron。</p>
+<p>&emsp;&emsp;假设给我们的数据是“线性可分”的，即至少存在一个perceptron，它很厉害，可以做到百分百的正确率(如图2-b)，对于任意的$(y_n,x_n)$，有$h(x_n)=y_n$。我们把这个完美的perceptron记为</p>
+<p>$$h(x)=sign(w_f^Tx)$$</p>
+<p>&emsp;&emsp;则Perceptron Learning要做的是，在“线性可分”的前提下，由一个初始的Perceptron $h(x)$开始，通过不断的learning，不断的调整$h(x)$的参数$w$，使他最终成为一个完美的perceptron。</p>
+<h3 id="Perceptron_Learning_Algorithm_(PLA)_-_“知错就改”演算法">Perceptron Learning Algorithm (PLA) - “知错就改”演算法</h3>
+<hr>
+<p>&emsp;&emsp;前面说到Perceptron Learning的目的，那么既然要learning就一定有一个learning的方法(譬如随机猜就是一种方法，但它不一定是个好方法)，这个方法能够指导我们该如何去慢慢调整$w$，使$h(x)$越来越接近我们心目中完美的perceptron  $sign(w_f^Tx)$。</p>
+<p>&emsp;&emsp;PLA的方法如下：</p>
+<p>&emsp;&emsp;For t = 0,1,…</p>
+<ol>
+<li><p>找到<script type="math/tex">w_t</script>产生的一个错误点</p>
+<script type="math/tex">sign(w_t^Tx_{n(t)}) \neq y_{n(t)}</script>  
+
+<p>(注意这里x的下标不是值维度，而是数据点的编号。<script type="math/tex">y_{n(t)}</script>指第t次更新后的一个分类错误点)</p>
+</li>
+<li><p>用下面的方法更正这个错误:  </p>
+<script type="math/tex">w_{t+1} \leftarrow w_t + y_{n(t)}x_{n(t)}</script>  
+
+</li>
+</ol>
+<p>&emsp;&emsp;…直到找不到错误点，返回最后一次迭代的$w$</p>
+<p>&emsp;&emsp;以下用图片展示迭代的过程，图片截至台湾大学<a href="https://www.coursera.org/instructor/htlin" target="_blank" rel="external">林轩田</a>老师<a href="https://www.coursera.org/course/ntumlone" target="_blank" rel="external">Machine Learning Foundation</a>的<a href="http://www.csie.ntu.edu.tw/~htlin/course/ml13fall/doc/02_handout.pdf" target="_blank" rel="external">讲义</a></p>
+<p><img src="/imgs/perceptron-learning-algorithm/pla_demo.png" alt="" title="pla_demo.png"></p>
+<p>&emsp;&emsp;图3 PLA 知“错”就“改”的过程</p>
+<p>&emsp;&emsp;从图中可以看出$w$确实在PLA的指导下，慢慢接近心目中的$w_f$。</p>
+<p>&emsp;&emsp;我们知道在数据线性可分的前提下，我们心目中有个完美的$w_f$，它能够完美的把圈圈和叉叉区分开来。那么如何证明PLA能够使$w$不断接近$w_f$呢？  </p>
+<p>&emsp;&emsp;这里就要用到夹角余弦的公式，如果<script type="math/tex">w_t</script>更新之后的<script type="math/tex">w_{t+1}</script>与<script type="math/tex">w_f</script>之间的夹角余弦变大(夹角变小)了，则我们可以说PLA是有效的。首先我们先来看pla的几个性质:</p>
+<hr>
+<ol>
+<li><p>因为$w_f$是完美的，因此对于任意的$x_n$，$w_f$都能把它归入正确的类别:</p>
+<p><script type="math/tex">y_{n(t)}w_f^Tx_{n(t)} \geq min\ {y_nw_f^Tx_n} \gt 0</script><br><br></p>
+</li>
+<li><script type="math/tex">w_f^Tw_t</script>在更新了任何一个错误点<script type="math/tex">(x_{n(t)},y_{n(t)})</script>后都会增大:  
+
+<script type="math/tex;mode=display">
+\begin{equation}
+\begin{split}
+w_f^Tw_{t+1} &=    w_f^T(w_t+y_{n(t)}x_{n(t)}) \\\
+             &\geq w_f^Tw_t + min\ {y_nw_f^Tx_n} \\\
+             &\gt  w_f^Tw_t
+\end{split}
+\end{equation}
+</script>
+</li>
+<li><p>看起来<script type="math/tex">w_{t+1}</script>是更接近<script type="math/tex">w_f</script>了，但他们内积的增大并不能表示他们夹角的变小，也有可能是因为<script type="math/tex">w_{t+1}</script>长度<script type="math/tex">||w_{t+1}||</script>增大了。但是<script type="math/tex">||w_{t+1}||</script>的增加是有限的:</p>
+<script type="math/tex;mode=display">
+\begin{equation}
+\begin{split}
+||w_{t+1}||^2 &=    ||w_t + y_{n(t)}x_{n(t)}||^2 \\\
+              &=    ||w_t||^2 + 2y_{n(t)}w_t^Tx_{n(t)} + ||y_{n(t)}x_{n(t)}||^2\\\
+              &\leq ||w_t||^2 + 0 + ||y_{n(t)}x_{n(t)}||^2 \\\
+              &\leq ||w_t||^2 + max\ {||x_n||^2}
+\end{split}
+\end{equation}
+</script>
+
+</li>
+</ol>
+<hr>
+<p>&emsp;&emsp;根据上面的性质，我们可以来求夹角余弦。从$w_0=0$(初始的向量)开始，经过T次错误更正，变为$w_T$，那么就有:</p>
+  <script type="math/tex;mode=display">
+  \begin{equation}
+  \begin{split}
+  w_f^Tw_T &\geq w_f^Tw_{T-1} + min\ {y_nw_f^Tx_n} \\\
+           &\geq ... \\\
+           &\geq w_f^Tw_0 + T\cdot min\ {y_nw_f^Tx_n} = T\cdot min\ {y_nw_f^Tx_n}
+  \end{split}
+  \end{equation}
+ </script>
+
+  <script type="math/tex;mode=display">
+  \begin{equation}
+  \begin{split}
+  ||w_T||^2 &\leq ||w_{T-1}||^2 + max\ {||x_n||^2} \\\
+            &\leq ... \\\
+            &\leq ||w_0||^2 + T\cdot max\ {||x_n||^2} = T\cdot max\ {||x_n||^2}
+  \end{split}
+  \end{equation}
+ </script>
+
+<p>&emsp;&emsp;再来求$w_T$与$w_f$的夹角余弦:<br> $$<br>  \begin{equation}<br>  \begin{split}<br>  \frac{w_f^Tw_T}{||w_f||||w_T||} &amp;\geq \frac{T\cdot min\ y_nw_f^Tx_n}{||w_f||||w_T||} \<br>                    &amp;\geq \frac{T\cdot min\ y_nw_f^Tx_n}{||w_f||\cdot \sqrt{T}\cdot max\ {||x_n||^2}}<br>                    = \frac {\sqrt{T}\rho}{R}<br>  \end{split}<br>  \end{equation}<br> $$</p>
+<p>&emsp;&emsp;其中$\rho = min\ y_n\frac {w_f^T}{||w_f||}x_n$与$R^2 = max\ {||x_n||^2}$都是大于0的常数。由于夹角余弦是小于等于1的，因此有:</p>
+<p>$$1 \geq \frac{w_f^Tw_T}{||w_f||||w_T||} \geq \frac {\sqrt{T}\rho}{R}$$</p>
+<p>&emsp;&emsp;上面的不等式告诉我们两点:</p>
+<ol>
+<li><p>PLA能够帮助$w_T$进步，因为$w_T$与$w_f$的夹角余弦随着更新错误点的次数T的增加而增加，$w_T$越来越接近$w_f$。</p>
+</li>
+<li><p>PLA会停止(halt)，因为$T \leq R^2/\rho ^2$，即当数据是线性可分时，经过有限次数的迭代，一定能找到一个能够把数据完美区分开的perceptron。</p>
+</li>
+</ol>
+<h3 id="Pocket_Step_-_把最好的$w$放口袋">Pocket Step - 把最好的$w$放口袋</h3>
+<hr>
+<p>&emsp;&emsp;有时我们拿到的数据数量庞大，或是不是线性可分的，这个时候用PLA将消耗大量的时间，或是根本无法停止，这个时候我们可以使用一种委曲求全的办法，在PLA中加入pocket step。这个pocket是做什么用的呢？这个pocket会使用PLA在每次迭代中产生的$w$，带进原始数据，去计算分类错误率，并记录最好的那个$w$，譬如我们设定让PLA迭代N次就停止，则pocket返回这N次迭代中出现的最好的$w$。当N足够大的时候，pocket总能返回还不错的结果。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a>, <a href="/tags/pla/">pla</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>阿里大数据 - 中国好大学 | Beader&#39;s blog</title>
+  <meta name="author" content="beader">
+  
+  <meta name="description" content="something about Statistics, Data Mining and R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="阿里大数据 - 中国好大学"/>
+  <meta property="og:site_name" content="Beader&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Beader&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Beader&#39;s blog</a></h1>
+  <h2><a href="/">something about Statistics, Data Mining and R</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+    <li><a href="/atom.xml">RSS</a></li>
+    <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-23T09:00:00.000Z"><a href="/2014/03/23/good-universities/">3月 23 2014</a></time>
+      
+      
+  
+    <h1 class="title">阿里大数据 - 中国好大学</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;最近阿里巴巴办了个数据挖掘竞赛-<a href="http://102.alibaba.com/competition/addDiscovery/index.htm" target="_blank" rel="external">阿里巴巴大数据竞赛</a>，题目是根据天猫用户4个月的行为记录来预测用户下一个月会买什么东西，参赛对象为高校在校学生。由于奖金数额十分巨大，因此比赛规模可以说是空前绝后的，短短2周就有4000多支队伍报名。比赛过程中，每队每周可以提交一次结果，组委会每周日统一计算各队的分数并公布排行榜(top 500)。</p>
+<p>&emsp;&emsp;噢，忘了说了这篇文章是关于R语言抓数据以及画图的，与比赛木有关系。本篇的内容纯粹just for fun，不具任何实际价值。是对我最近在cos.name上混来的一些R语言技巧的复习。<br><a id="more"></a></p>
+<p>&emsp;&emsp;好了继续。当然我也参加了比赛，但是很不幸第二周就被挤了出来，于是乎对着这个top 500看了好久，想了好久，睡了好久……</p>
+<p>&emsp;&emsp;由于参赛队员都是在校学生，而且又是规模空前，几乎全国稍微有点名气的学校都参加了，那么这些学校的表现如何呢？一所大学的综合排名能否很好的表现在比赛中呢？这次的文章就在尝试能否用数据来帮助理解前面这些问题。</p>
+<p>&emsp;&emsp;首先我们需要获取这份榜单，地址是:<br>&emsp;&emsp;<a href="http://102.alibaba.com/competition/addDiscovery/totalRank.htm" target="_blank" rel="external">http://102.alibaba.com/competition/addDiscovery/totalRank.htm</a>。<br>&emsp;&emsp;打开发现每页只能显示20支队伍，一共25页。一开始的想法是利用R的XML包，读取HTML TABLE，但是点击第2页的时候，发现网址居然是不会变化的，因此就没有办法根据网址一页一页下载下来。怀疑应该是在你点击下一页的时候，通过一个API获取下一页的信息，再利用javascript来更新表格。</p>
+<p>&emsp;&emsp;此时派chrome上场，在页面上点右键-审查元素，打开develop tools:</p>
+<p><img src="/imgs/good-universities/chrome_dev_tools.png" alt="" title="chrome_dev_tools.png"></p>
+<p>&emsp;&emsp;选择Network，然后在排行榜的页面庄重的点”下一页”。然后developer tools就会抓到刚刚点了“下一页”之后发生的http请求。</p>
+<p><img src="/imgs/good-universities/chrome_dev_tool_network.png" alt="" title="chrome_dev_tool_network.png"></p>
+<p>&emsp;&emsp;<a href="http://102.alibaba.com/competition/addDiscovery/queryTotalRank.json" target="_blank" rel="external">http://102.alibaba.com/competition/addDiscovery/queryTotalRank.json</a> 就是网页获取排名数据的API了，使用POST方法，带上pageIndex以及pageSize两个参数，就可以获取排名信息。接下来就要请RCurl上场了。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(RCurl)</div><div class="line"><span class="keyword">library</span>(rjson)</div><div class="line"><span class="keyword">library</span>(plyr)</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">api &lt;- <span class="string">"http://102.alibaba.com/competition/addDiscovery/queryTotalRank.json"</span></div><div class="line"><span class="comment"># 发现其实可以抓到所有队伍的排名，不止是top 500，把pageSize设很大就行了</span></div><div class="line">result &lt;- postForm(api, pageIndex = <span class="number">1</span>, pageSize = <span class="number">5000</span>)</div><div class="line">resjson &lt;- fromJSON(result)</div><div class="line">ranks &lt;- (resjson$returnValue$datas)</div><div class="line">leaderBoard &lt;- ldply(ranks, unlist)</div><div class="line">leaderBoard &lt;- leaderBoard[, c(<span class="string">"rank"</span>, <span class="string">"teamName"</span>, <span class="string">"university"</span>, <span class="string">"score"</span>, <span class="string">"dateString"</span>)]</div><div class="line">leaderBoard$score &lt;- as.numeric(leaderBoard$score)</div><div class="line">leaderBoard$rank &lt;- as.integer(leaderBoard$rank)</div><div class="line">head(leaderBoard)</div></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">teamName</th>
+<th style="text-align:left">university</th>
+<th style="text-align:left">score</th>
+<th style="text-align:left">dateString</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">cucyyyy</td>
+<td style="text-align:left">中国传媒大学</td>
+<td style="text-align:left">0.0717</td>
+<td style="text-align:left">2014-03-23</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">花莲</td>
+<td style="text-align:left">南京大学</td>
+<td style="text-align:left">0.0694</td>
+<td style="text-align:left">2014-03-23</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">CUCkdd</td>
+<td style="text-align:left">中国传媒大学</td>
+<td style="text-align:left">0.0692</td>
+<td style="text-align:left">2014-03-23</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">WYZ</td>
+<td style="text-align:left">清华大学</td>
+<td style="text-align:left">0.0685</td>
+<td style="text-align:left">2014-03-23</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">車輪戦</td>
+<td style="text-align:left">哈尔滨工业大学</td>
+<td style="text-align:left">0.0684</td>
+<td style="text-align:left">2014-03-16</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;先来看看各个学校都有多少队参加比赛。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="comment"># 因为这次想用刚学的ggplot2画图，这里设定下ggplot2的全局参数，</span></div><div class="line"><span class="comment"># 把字体设为宋体，以正常显示中文</span></div><div class="line">theme_set(theme_grey(base_family = <span class="string">"Songti SC"</span>, base_size = <span class="number">15</span>))</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">school_summary &lt;- ddply(leaderBoard, .(university), <span class="keyword">function</span>(x) c(num_teams=nrow(x)))</div><div class="line">school_summary &lt;- school_summary[order(school_summary$num_teams,decreasing=<span class="literal">T</span>),]</div><div class="line">school_summary$university &lt;- factor(school_summary$university,levels=school_summary$university)</div><div class="line">ggplot(school_summary[<span class="number">1</span>:<span class="number">10</span>,], aes(x=university, y=num_teams)) +</div><div class="line">  geom_bar(stat=<span class="string">"identity"</span>, fill=<span class="string">"steelblue"</span>) + </div><div class="line">  geom_text(aes(label=num_teams, vjust=-<span class="number">.3</span>)) +</div><div class="line">  labs(title=<span class="string">"参赛队伍数最多的10所大学\n"</span>,x=<span class="string">""</span>,y=<span class="string">"参赛队伍数"</span>) +</div><div class="line">  theme(axis.text=element_text(size=<span class="number">14</span>,angle=<span class="number">20</span>))</div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/good-universities/school_summary.png" alt="" title="school_summary.png"></p>
+<p>&emsp;&emsp;看来浙大很具主场优势啊，中科院也是来势汹汹。这里参赛队伍数是报名并且成功提交过结果的队伍数，截止3.23凌晨，共有1383队提交过结果。</p>
+<p>&emsp;&emsp;那么如何衡量学校的表现呢？先来看看哪些学校的牛人最牛。我这里用的方法是计算每个学校最强的5支队伍的平均分数。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mean_top5 &lt;- ddply(leaderBoard,.(university), <span class="keyword">function</span>(x){</div><div class="line">  scores &lt;- x$score</div><div class="line">  scores &lt;- scores[order(scores,decreasing=<span class="literal">T</span>)]</div><div class="line">  c(average=mean(scores[<span class="number">1</span>:<span class="number">5</span>],na.rm=<span class="literal">T</span>),</div><div class="line">    num_teams=nrow(x))</div><div class="line">})</div><div class="line">mean_top5 &lt;- mean_top5[order(mean_top5$average,decreasing=<span class="literal">T</span>),]</div><div class="line">mean_top5 &lt;- mean_top5[mean_top5$num_team &gt;= <span class="number">5</span>,]</div><div class="line">rownames(mean_top5) &lt;- <span class="number">1</span>:nrow(mean_top5)</div><div class="line">mean_top5</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;为了减少极端值的影响，这里把参赛队伍数少于5的学校给过滤掉了。</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;根据每个学校前5名平均分排序</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:left">university</th>
+<th style="text-align:right">average</th>
+<th style="text-align:right">num_teams </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">哈尔滨工业大学</td>
+<td style="text-align:right">0.0662</td>
+<td style="text-align:right">45</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">浙江大学</td>
+<td style="text-align:right">0.0661</td>
+<td style="text-align:right">97</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">清华大学</td>
+<td style="text-align:right">0.0651</td>
+<td style="text-align:right">37</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">南京大学</td>
+<td style="text-align:right">0.0645</td>
+<td style="text-align:right">40</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">中国科学院大学</td>
+<td style="text-align:right">0.0645</td>
+<td style="text-align:right">76</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">中国科学技术大学</td>
+<td style="text-align:right">0.0643</td>
+<td style="text-align:right">47</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">北京邮电大学</td>
+<td style="text-align:right">0.0639</td>
+<td style="text-align:right">87</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:left">北京理工大学</td>
+<td style="text-align:right">0.0628</td>
+<td style="text-align:right">25</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">华中师范大学</td>
+<td style="text-align:right">0.0623</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">北京航空航天大学</td>
+<td style="text-align:right">0.0622</td>
+<td style="text-align:right">22</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">北京大学</td>
+<td style="text-align:right">0.0620</td>
+<td style="text-align:right">39</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">电子科技大学</td>
+<td style="text-align:right">0.0619</td>
+<td style="text-align:right">56</td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:left">西南交通大学</td>
+<td style="text-align:right">0.0613</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:left">大连理工大学</td>
+<td style="text-align:right">0.0604</td>
+<td style="text-align:right">19</td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:left">西安电子科技大学</td>
+<td style="text-align:right">0.0600</td>
+<td style="text-align:right">37</td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:left">中山大学</td>
+<td style="text-align:right">0.0597</td>
+<td style="text-align:right">35</td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:left">华南理工大学</td>
+<td style="text-align:right">0.0591</td>
+<td style="text-align:right">28</td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:left">山东大学</td>
+<td style="text-align:right">0.0590</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:left">武汉大学</td>
+<td style="text-align:right">0.0588</td>
+<td style="text-align:right">19</td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:left">香港科技大学</td>
+<td style="text-align:right">0.0574</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:left">东南大学</td>
+<td style="text-align:right">0.0571</td>
+<td style="text-align:right">27</td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:left">中国人民大学</td>
+<td style="text-align:right">0.0570</td>
+<td style="text-align:right">9</td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:left">厦门大学</td>
+<td style="text-align:right">0.0569</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:left">华东师范大学</td>
+<td style="text-align:right">0.0565</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:left">上海交通大学</td>
+<td style="text-align:right">0.0565</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:left">华中科技大学</td>
+<td style="text-align:right">0.0562</td>
+<td style="text-align:right">35</td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:left">东北大学</td>
+<td style="text-align:right">0.0559</td>
+<td style="text-align:right">17</td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:left">同济大学</td>
+<td style="text-align:right">0.0557</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:left">复旦大学</td>
+<td style="text-align:right">0.0530</td>
+<td style="text-align:right">25</td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:left">南开大学</td>
+<td style="text-align:right">0.0520</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:right">31</td>
+<td style="text-align:left">天津大学</td>
+<td style="text-align:right">0.0498</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:right">32</td>
+<td style="text-align:left">西安交通大学</td>
+<td style="text-align:right">0.0480</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:right">33</td>
+<td style="text-align:left">东华大学</td>
+<td style="text-align:right">0.0467</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:right">34</td>
+<td style="text-align:left">广东工业大学</td>
+<td style="text-align:right">0.0460</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">35</td>
+<td style="text-align:left">北京交通大学</td>
+<td style="text-align:right">0.0459</td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td style="text-align:right">36</td>
+<td style="text-align:left">北京师范大学</td>
+<td style="text-align:right">0.0459</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">37</td>
+<td style="text-align:left">湖南大学</td>
+<td style="text-align:right">0.0450</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">38</td>
+<td style="text-align:left">南京邮电大学</td>
+<td style="text-align:right">0.0440</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">39</td>
+<td style="text-align:left">西北农林科技大学</td>
+<td style="text-align:right">0.0430</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">40</td>
+<td style="text-align:left">西北工业大学</td>
+<td style="text-align:right">0.0426</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">41</td>
+<td style="text-align:left">南京航空航天大学</td>
+<td style="text-align:right">0.0413</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">42</td>
+<td style="text-align:left">中国科学院软件研究所</td>
+<td style="text-align:right">0.0403</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">43</td>
+<td style="text-align:left">燕山大学</td>
+<td style="text-align:right">0.0378</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">44</td>
+<td style="text-align:left">吉林大学</td>
+<td style="text-align:right">0.0366</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">45</td>
+<td style="text-align:left">北京工业大学</td>
+<td style="text-align:right">0.0358</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">46</td>
+<td style="text-align:left">哈尔滨工业大学（威海）</td>
+<td style="text-align:right">0.0356</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">47</td>
+<td style="text-align:left">中南大学</td>
+<td style="text-align:right">0.0315</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">48</td>
+<td style="text-align:left">浙江工商大学</td>
+<td style="text-align:right">0.0283</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">49</td>
+<td style="text-align:left">四川大学</td>
+<td style="text-align:right">0.0267</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">50</td>
+<td style="text-align:left">武汉理工大学</td>
+<td style="text-align:right">0.0209</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">51</td>
+<td style="text-align:left">福建师范大学</td>
+<td style="text-align:right">0.0041</td>
+<td style="text-align:right">5</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;上面的学校排名符合您心目中的预期吗？</p>
+<p>&emsp;&emsp;那么如何去衡量一个学校所有队伍的综合表现呢？当分数的分布有偏的时候，不太好直接使用全部队伍得分的平均数来对比两个学校的表现，而且各个学校参赛队伍数差异很大。中位数是个不错的衡量指标，但它会忽略这个学校最强和最弱的这两群学生。</p>
+<p>&emsp;&emsp;一个比较直觉的想法是，如果这个学校所有队伍的排名整体比较靠前，则该学校整体实力较强。如果这个学校所有队伍的排名整体比较靠后，则该学校整体实力较弱。</p>
+<p>&emsp;&emsp;这里可以拿两所学校做个对比。为何会选这两所学校呢？很简单，博主来自于厦大，另外下面那所学校是随机挑的。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">tsinghua &lt;- leaderBoard[leaderBoard$university==<span class="string">"清华大学"</span>,]</div><div class="line">xmu &lt;- leaderBoard[leaderBoard$university==<span class="string">"厦门大学"</span>,]</div><div class="line">ggplot(rbind(tsinghua,xmu),aes(rank,fill=university)) + </div><div class="line">  geom_density(color=<span class="string">"transparent"</span>,alpha=<span class="number">0.5</span>) +</div><div class="line">  labs(x=<span class="string">"名次"</span>,y=<span class="string">"密度"</span>,title=<span class="string">"两个学校名次分布对比\n"</span>) +</div><div class="line">  facet_grid(university~.)</div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/good-universities/density_of_ranks.png" alt="" title="density_of_ranks.png"></p>
+<p>&emsp;&emsp;两个学校的整体实力很容易就能看出来了。清华大学的队大部分集中在前500名，表现较好。</p>
+<p>&emsp;&emsp;另外还想到的就是可能可以利用ROC曲线来衡量一个学校的整体表现。关于ROC的具体介绍，可以看<a href="http://beader.me/2013/12/15/auc-roc/" target="_blank" rel="external">这里</a>。继续以清华为例子，画出它的ROC曲线。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ROCR)</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">probs &lt;- seq(<span class="number">1</span>,<span class="number">0</span>,length.out=nrow(leaderBoard))</div><div class="line">labels &lt;- rep(<span class="number">0</span>,nrow(leaderBoard))</div><div class="line">labels[tsinghua$rank] = <span class="number">1</span></div><div class="line">pred &lt;- prediction(probs ,labels)</div><div class="line">perf &lt;- performance(pred,<span class="string">"tpr"</span>,<span class="string">"fpr"</span>)</div><div class="line">perf &lt;- data.frame(FPR = perf@x.values[[<span class="number">1</span>]], TPR = perf@y.values[[<span class="number">1</span>]])</div><div class="line">ggplot(perf, aes(FPR,TPR)) + </div><div class="line">  labs(title=<span class="string">"ROC Curve\n"</span>) +</div><div class="line">  geom_density(stat=<span class="string">"identity"</span>,</div><div class="line">               fill=<span class="string">"steelblue"</span>,</div><div class="line">               color=<span class="string">"transparent"</span>,alpha=<span class="number">0.6</span>)</div></pre></td></tr></table></figure>
+
+<p><img src="/imgs/good-universities/roc_tsinghua.png" alt="" title="roc_tsinghua.png"></p>
+<p>&emsp;&emsp;这个ROC曲线下的面积成为AUC (area under curve)，该部分面积越大，代表整体排名越前。可以利用ROCR包很容易的计算出AUC:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">performance(pred,<span class="string">"auc"</span>)@y.values[[<span class="number">1</span>]]</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">## [1] 0.6233</span></div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;AUC的值超过0.5，说明该校整体表现高于平均水准；小于0.5，说明整体表现低于平均水准。</p>
+<p>&emsp;&emsp;写一个function来计算所有学校的AUC：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">auc &lt;- <span class="keyword">function</span>(ranks, n) {</div><div class="line">    probs &lt;- seq(<span class="number">1</span>, <span class="number">0</span>, length.out = n)</div><div class="line">    labels &lt;- rep(<span class="number">0</span>, n)</div><div class="line">    labels[ranks] &lt;- <span class="number">1</span></div><div class="line">    pred &lt;- prediction(probs, labels)</div><div class="line">    perf &lt;- performance(pred, <span class="string">"auc"</span>)</div><div class="line">    perf@y.values[[<span class="number">1</span>]]</div><div class="line">}</div><div class="line">auc_leaderboard &lt;- ddply(leaderBoard, .(university), <span class="keyword">function</span>(x) {</div><div class="line">    c(auc = auc(x$rank, nrow(leaderBoard)), num_teams = nrow(x))</div><div class="line">})</div><div class="line">auc_leaderboard &lt;- auc_leaderboard[order(auc_leaderboard$auc, decreasing = <span class="literal">T</span>), ]</div><div class="line">auc_leaderboard &lt;- auc_leaderboard[auc_leaderboard$num_teams &gt;= <span class="number">8</span>, ]</div><div class="line">rownames(auc_leaderboard) &lt;- <span class="number">1</span>:nrow(auc_leaderboard)</div><div class="line">auc_leaderboard</div></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;根据AUC排序的榜单</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:left">university</th>
+<th style="text-align:right">auc</th>
+<th style="text-align:right">num_teams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">西南交通大学</td>
+<td style="text-align:right">0.7116</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">华中师范大学</td>
+<td style="text-align:right">0.7084</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">中国人民大学</td>
+<td style="text-align:right">0.6417</td>
+<td style="text-align:right">9</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">清华大学</td>
+<td style="text-align:right">0.6233</td>
+<td style="text-align:right">37</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">香港科技大学</td>
+<td style="text-align:right">0.6228</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">北京航空航天大学</td>
+<td style="text-align:right">0.6092</td>
+<td style="text-align:right">22</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">东北大学</td>
+<td style="text-align:right">0.6062</td>
+<td style="text-align:right">17</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:left">华东师范大学</td>
+<td style="text-align:right">0.5975</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">中国科学技术大学</td>
+<td style="text-align:right">0.5848</td>
+<td style="text-align:right">47</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">北京大学</td>
+<td style="text-align:right">0.5785</td>
+<td style="text-align:right">39</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">武汉大学</td>
+<td style="text-align:right">0.5680</td>
+<td style="text-align:right">19</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">北京理工大学</td>
+<td style="text-align:right">0.5594</td>
+<td style="text-align:right">25</td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:left">北京邮电大学</td>
+<td style="text-align:right">0.5489</td>
+<td style="text-align:right">87</td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:left">浙江大学</td>
+<td style="text-align:right">0.5391</td>
+<td style="text-align:right">97</td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:left">西北工业大学</td>
+<td style="text-align:right">0.5118</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:left">哈尔滨工业大学</td>
+<td style="text-align:right">0.5106</td>
+<td style="text-align:right">45</td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:left">广东工业大学</td>
+<td style="text-align:right">0.5073</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:left">上海交通大学</td>
+<td style="text-align:right">0.5047</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:left">大连理工大学</td>
+<td style="text-align:right">0.5006</td>
+<td style="text-align:right">19</td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:left">南京大学</td>
+<td style="text-align:right">0.4901</td>
+<td style="text-align:right">40</td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:left">同济大学</td>
+<td style="text-align:right">0.4881</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:left">厦门大学</td>
+<td style="text-align:right">0.4865</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:left">南开大学</td>
+<td style="text-align:right">0.4817</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:left">电子科技大学</td>
+<td style="text-align:right">0.4809</td>
+<td style="text-align:right">56</td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:left">东南大学</td>
+<td style="text-align:right">0.4769</td>
+<td style="text-align:right">27</td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:left">中国科学院大学</td>
+<td style="text-align:right">0.4751</td>
+<td style="text-align:right">76</td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:left">中山大学</td>
+<td style="text-align:right">0.4747</td>
+<td style="text-align:right">35</td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:left">南京邮电大学</td>
+<td style="text-align:right">0.4724</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:left">天津大学</td>
+<td style="text-align:right">0.4632</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:left">山东大学</td>
+<td style="text-align:right">0.4617</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:right">31</td>
+<td style="text-align:left">东华大学</td>
+<td style="text-align:right">0.4585</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:right">32</td>
+<td style="text-align:left">西安交通大学</td>
+<td style="text-align:right">0.4277</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:right">33</td>
+<td style="text-align:left">复旦大学</td>
+<td style="text-align:right">0.4062</td>
+<td style="text-align:right">25</td>
+</tr>
+<tr>
+<td style="text-align:right">34</td>
+<td style="text-align:left">西安电子科技大学</td>
+<td style="text-align:right">0.4049</td>
+<td style="text-align:right">37</td>
+</tr>
+<tr>
+<td style="text-align:right">35</td>
+<td style="text-align:left">华南理工大学</td>
+<td style="text-align:right">0.4048</td>
+<td style="text-align:right">28</td>
+</tr>
+<tr>
+<td style="text-align:right">36</td>
+<td style="text-align:left">华中科技大学</td>
+<td style="text-align:right">0.3995</td>
+<td style="text-align:right">35</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;上面的学校排名有更符合您心目中的预期吗？</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/R/">R</a>, <a href="/tags/ggplot2/">ggplot2</a>, <a href="/tags/plyr/">plyr</a>, <a href="/tags/rcurl/">rcurl</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+
+
+  喜欢就分享一下吧
+  <div class="bdsharebuttonbox">
+  
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  
+  
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+  
+  
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+  
+  
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+  
+  
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+  
+  
+</div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"beader"};
+  (function() {
+ 	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = 'http://static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:beader.me">
+  </form>
+</div>
+
+  <div class="widget tag">
+<h3 class="title">整理</h3>
+<ul class="entry">
+<li><a href="http://beader.me/mlnotebook/" title="Machine Learning Notebook">机器学习笔记(Open Book)</a></li>
+</ul>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Error-Measure/">Error Measure</a><small>1</small></li>
+  
+    <li><a href="/tags/Hoeffding’s-Inequality/">Hoeffding’s Inequality</a><small>1</small></li>
+  
+    <li><a href="/tags/Logistic-Regression/">Logistic Regression</a><small>2</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>7</small></li>
+  
+    <li><a href="/tags/MapReduce/">MapReduce</a><small>1</small></li>
+  
+    <li><a href="/tags/Noise/">Noise</a><small>1</small></li>
+  
+    <li><a href="/tags/ODPS/">ODPS</a><small>1</small></li>
+  
+    <li><a href="/tags/R/">R</a><small>3</small></li>
+  
+    <li><a href="/tags/VC-Dimension，成长函数-(growth-function)/">VC Dimension，成长函数 (growth function)</a><small>2</small></li>
+  
+    <li><a href="/tags/VC-Dimension，自由度(degree-of-freedom)/">VC Dimension，自由度(degree of freedom)</a><small>1</small></li>
+  
+    <li><a href="/tags/auc/">auc</a><small>1</small></li>
+  
+    <li><a href="/tags/classification-tree/">classification tree</a><small>1</small></li>
+  
+    <li><a href="/tags/ggplot2/">ggplot2</a><small>1</small></li>
+  
+    <li><a href="/tags/gini-coefficient/">gini coefficient</a><small>1</small></li>
+  
+    <li><a href="/tags/human-activity-recognition/">human activity recognition</a><small>1</small></li>
+  
+    <li><a href="/tags/pla/">pla</a><small>2</small></li>
+  
+    <li><a href="/tags/plyr/">plyr</a><small>1</small></li>
+  
+    <li><a href="/tags/r/">r</a><small>1</small></li>
+  
+    <li><a href="/tags/random-forest/">random forest</a><small>2</small></li>
+  
+    <li><a href="/tags/rcurl/">rcurl</a><small>1</small></li>
+  
+    <li><a href="/tags/roc/">roc</a><small>1</small></li>
+  
+    <li><a href="/tags/text-mining/">text mining</a><small>1</small></li>
+  
+    <li><a href="/tags/word-cloud/">word cloud</a><small>1</small></li>
+  
+    <li><a href="/tags/偏导数-(partial-derivative)/">偏导数 (partial derivative)</a><small>1</small></li>
+  
+    <li><a href="/tags/分类器/">分类器</a><small>1</small></li>
+  
+    <li><a href="/tags/帽子矩阵(Hat-Matrix)/">帽子矩阵(Hat Matrix)</a><small>1</small></li>
+  
+    <li><a href="/tags/感知机-(perceptron)/">感知机 (perceptron)</a><small>1</small></li>
+  
+    <li><a href="/tags/梯度下降-(gradient-decent)/">梯度下降 (gradient decent)</a><small>1</small></li>
+  
+    <li><a href="/tags/线性回归(Linear-Regression)/">线性回归(Linear Regression)</a><small>2</small></li>
+  
+    <li><a href="/tags/统计图表/">统计图表</a><small>1</small></li>
+  
+    <li><a href="/tags/非线性转换(Nonlinear-Transformation)/">非线性转换(Nonlinear Transformation)</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://lemoner.me//" title="Lemon's Blog">Lemon's Blog</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 beader
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'beader';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F96088bf0972512652719efc549bd275b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>
